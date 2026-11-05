@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TinyWorld</title>
+<style>
+body {
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  background: #10152d;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+header {font-size: 28px;font-weight: bold;color: #a78bfa}
+main {
+  max-width: 500px;
+  margin: 35px auto;
+  padding: 25px;
+  background: #202b4c;
+  border-radius: 20px;
+}
+h1 {font-size: 27px}
+p {line-height: 2;color: #d1d5db}
+button {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 15px;
+  border: 1px solid #7565c9;
+  border-radius: 12px;
+  background: #303d65;
+  color: white;
+  font-size: 17px;
+}
+button:active {background: #6046c7}
+#result {color: #52e0b0;font-weight: bold}
+</style>
+</head>
+<body>
+<header>🌍 TinyWorld</header>
+<main>
+<h1>به دنیای معما خوش آمدی!</h1>
+<p>چیزی که هرچه بیشتر از آن برداری، بزرگ‌تر می‌شود چیست؟</p>
+<button onclick="check(0)">۱. سوراخ</button>
+<button onclick="check(1)">۲. سنگ</button>
+<button onclick="check(2)">۳. آب</button>
+<button onclick="check(3)">۴. درخت</button>
+<p id="result"></p>
+</main>
+<script>
+function check(answer) {
+ document.getElementById("result").innerText =
+ answer === 0 ? "آفرین! پاسخ درست است 🎉" : "اشتباه بود! دوباره فکر کن.";
+}
+</script>
+</body>
+</html>
