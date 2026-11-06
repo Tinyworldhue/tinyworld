@@ -3,409 +3,412 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090b16">
-<title>TinyWorld — Play Beyond</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050713">
+<title>TinyWorld — Beyond The Universe</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
 
 :root{
- --bg:#090b16;--panel:#111526;--panel2:#171d32;
- --line:#252d46;--muted:#929bb5;--white:#f5f6ff;
- --purple:#8b6cff;--blue:#4f9cff;--green:#43d6a0;
- --gold:#ffc66e;
+ --bg:#050713;--panel:#0d1428;--line:#253657;
+ --purple:#9867ff;--cyan:#4ce5ff;--blue:#398bff;
+ --text:#f2f5ff;--muted:#8998b8;--gold:#ffce70;
 }
 *{box-sizing:border-box}
 body{
- margin:0;background:var(--bg);color:var(--white);
- font-family:Vazirmatn,Tahoma,sans-serif;
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Vazirmatn,Tahoma,sans-serif;overflow-x:hidden;
 }
-button,input{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;display:flex}
+button{font:inherit;cursor:pointer}
+#stars{
+ position:fixed;inset:0;width:100%;height:100%;
+ z-index:-2;pointer-events:none;
+}
+.space-glow{
+ position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:
+ radial-gradient(ellipse at 80% 10%,#44228b36,transparent 35%),
+ radial-gradient(ellipse at 15% 70%,#075a8b25,transparent 40%);
+}
+.layout{display:flex;min-height:100vh}
 .sidebar{
- width:245px;position:fixed;right:0;top:0;bottom:0;
- background:#0d1020;border-left:1px solid var(--line);
- padding:25px 17px;z-index:10;display:flex;flex-direction:column;
+ width:235px;position:fixed;right:0;top:0;bottom:0;
+ background:#080d1ceF;backdrop-filter:blur(20px);
+ border-left:1px solid #26365a;padding:25px 16px;
+ z-index:5;display:flex;flex-direction:column;
 }
-.brand{display:flex;align-items:center;gap:10px;padding:0 10px 30px}
-.brand-icon{
- width:39px;height:39px;border-radius:13px;
- background:linear-gradient(135deg,#9d75ff,#477dff);
- display:grid;place-items:center;font-size:21px;
- box-shadow:0 5px 25px #765aff55;
+.logo{display:flex;align-items:center;gap:11px;padding:0 7px 34px}
+.logo-icon{
+ width:43px;height:43px;border-radius:14px;
+ display:grid;place-items:center;font-size:23px;
+ background:linear-gradient(135deg,#a34dff,#287aff);
+ box-shadow:0 0 25px #8353ff77;
 }
-.brand-name{font-size:21px;font-weight:900;letter-spacing:-1px}
-.brand-name span{color:#a68cff}
-.nav-label{font-size:11px;color:#707b99;padding:12px 13px}
-.nav{display:flex;flex-direction:column;gap:7px}
-.nav button{
- border:0;background:transparent;color:#9ba5c0;
- padding:12px 14px;border-radius:11px;text-align:right;
- display:flex;align-items:center;gap:12px;font-size:13px;
+.logo strong{font-size:20px;letter-spacing:1px}
+.logo strong span{color:var(--cyan)}
+.nav-title{font-size:10px;color:#61718f;padding:10px 13px}
+nav{display:grid;gap:7px}
+nav button{
+ border:1px solid transparent;background:transparent;color:#a0aecb;
+ padding:12px;border-radius:11px;text-align:right;font-size:12px;
 }
-.nav button:hover,.nav button.active{
- color:white;background:linear-gradient(90deg,#29234c,#201e39);
+nav button:hover,nav button.active{
+ background:linear-gradient(90deg,#302254,#142b4b);
+ border-color:#644bb1;color:white;
+ box-shadow:inset -3px 0 var(--cyan);
 }
-.nav button.active{border-right:3px solid var(--purple)}
-.nav-icon{font-size:18px;width:23px;text-align:center}
-.sidebar-bottom{margin-top:auto}
-.mini-profile{
- background:var(--panel2);border:1px solid var(--line);
- border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;
+.nav-icon{display:inline-block;width:28px;font-size:17px}
+.sidebar-profile{
+ margin-top:auto;background:#101a31;border:1px solid var(--line);
+ padding:12px;border-radius:14px;display:flex;align-items:center;gap:10px;
 }
 .avatar{
- width:39px;height:39px;border-radius:12px;
- background:linear-gradient(135deg,#755cff,#42a5ff);
- display:grid;place-items:center;font-size:20px;
+ width:40px;height:40px;border-radius:13px;
+ display:grid;place-items:center;font-size:21px;
+ background:linear-gradient(135deg,#8b4cff,#267eea);
 }
-.mini-profile small{display:block;color:var(--muted);font-size:10px}
-.main{margin-right:245px;width:calc(100% - 245px);padding:0 35px 45px}
+.sidebar-profile small{display:block;color:var(--muted);font-size:10px}
+.main{margin-right:235px;width:calc(100% - 235px);padding:0 30px 40px}
 .topbar{
- height:78px;display:flex;align-items:center;justify-content:space-between;
- border-bottom:1px solid var(--line);gap:12px;
+ height:75px;border-bottom:1px solid #202e4c;
+ display:flex;align-items:center;justify-content:space-between;
 }
-.breadcrumb{font-size:13px;color:var(--muted)}
-.top-actions{display:flex;align-items:center;gap:10px}
-.coin-pill,.lang-btn,.icon-btn{
- border:1px solid var(--line);background:var(--panel);
- color:white;border-radius:11px;padding:9px 13px;
+.topbar small{color:var(--muted)}
+.actions{display:flex;gap:10px;align-items:center}
+.coin{
+ padding:9px 13px;border:1px solid #68532c;
+ background:#302518;color:var(--gold);border-radius:10px;font-size:12px;
 }
-.coin-pill{color:var(--gold);font-weight:700}
-.lang-btn{font-size:12px}
-.icon-btn{font-size:18px}
+.lang{
+ background:#111c35;color:white;border:1px solid #33496d;
+ border-radius:10px;padding:9px 13px;
+}
 .content{max-width:1250px;margin:auto}
 .hero{
- margin-top:27px;border:1px solid #39305e;border-radius:22px;
- padding:34px 35px;min-height:245px;position:relative;overflow:hidden;
+ position:relative;overflow:hidden;margin-top:25px;
+ min-height:340px;border:1px solid #4e4c9c;border-radius:23px;
  background:
- radial-gradient(circle at 85% 25%,#7551ba55,transparent 27%),
- radial-gradient(circle at 70% 100%,#315cc855,transparent 35%),
- linear-gradient(115deg,#19182f,#121a31 65%,#17162d);
+ radial-gradient(ellipse at 80% 50%,#6631a766,transparent 35%),
+ linear-gradient(110deg,#0c1733,#171036 60%,#07182c);
+ box-shadow:0 15px 70px #15113e66;
 }
-.hero:after{
- content:"";position:absolute;width:240px;height:240px;border-radius:50%;
- border:1px solid #ffffff12;right:55%;top:15px;
- box-shadow:0 0 0 35px #ffffff05,0 0 0 70px #ffffff04;
+.hero:before{
+ content:"";position:absolute;inset:0;opacity:.2;
+ background-image:linear-gradient(#7787ff22 1px,transparent 1px),
+ linear-gradient(90deg,#7787ff22 1px,transparent 1px);
+ background-size:35px 35px;
+ mask-image:linear-gradient(to left,black,transparent);
 }
-.hero-content{position:relative;z-index:1;max-width:600px}
-.eyebrow{
- color:#b7a4ff;font-size:11px;letter-spacing:2px;font-weight:700;
+.hero-content{position:relative;z-index:2;padding:40px 35px;max-width:610px}
+.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:3px}
+.hero h1{font-size:clamp(27px,4vw,43px);line-height:1.5;margin:12px 0}
+.hero p{font-size:13px;color:#b0bfdb;line-height:2}
+.cta{
+ background:linear-gradient(100deg,#8751ff,#347dff);
+ border:0;border-radius:11px;color:white;padding:13px 22px;
+ box-shadow:0 0 25px #7d55ff77;margin-top:10px;
 }
-.hero h1{font-size:clamp(25px,4vw,39px);line-height:1.5;margin:9px 0}
-.hero p{color:#b4bdd2;font-size:13px;line-height:2;margin:0 0 18px}
-.primary{
- border:0;border-radius:11px;padding:12px 21px;color:white;
- background:linear-gradient(110deg,#8664ff,#526cff);
- box-shadow:0 7px 24px #725aff35;font-weight:700;
+.planet{
+ position:absolute;width:245px;height:245px;left:9%;top:40px;
+ border-radius:50%;
+ background:
+ radial-gradient(circle at 30% 28%,#e6b4ff 0%,#965bff 15%,#4a3ab0 38%,#151c5b 70%,#07102d 100%);
+ box-shadow:inset -30px -25px 45px #000a,
+ inset 10px 8px 25px #fff5,
+ 0 0 55px #8e62ff99;
+ animation:float 6s ease-in-out infinite;
 }
-.primary:hover{filter:brightness(1.12)}
-.hero-art{
- position:absolute;left:7%;top:30px;font-size:105px;
- filter:drop-shadow(0 12px 25px #8a6aff66);transform:rotate(-9deg);
+.planet:before{
+ content:"";position:absolute;width:330px;height:85px;
+ border:12px solid #b6a0ff88;border-radius:50%;
+ left:-43px;top:83px;transform:rotate(-25deg);
+ box-shadow:0 0 18px #b29aff;
 }
+.planet:after{
+ content:"";position:absolute;width:80px;height:80px;
+ background:#fff4;border-radius:50%;filter:blur(30px);
+ left:45px;top:35px;
+}
+@keyframes float{50%{transform:translateY(-13px) rotate(4deg)}}
+.stats{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;
+}
+.stat{
+ background:linear-gradient(145deg,#121c36dd,#0a1021dd);
+ border:1px solid #283c60;border-radius:15px;padding:15px;
+ box-shadow:inset 0 0 25px #477aff08;
+}
+.stat small{color:var(--muted);font-size:10px}
+.stat strong{display:block;font-size:21px;margin-top:5px}
+.stat-icon{font-size:20px;float:left}
 .section-head{
  display:flex;justify-content:space-between;align-items:center;
  margin:30px 0 15px;
 }
 .section-head h2{font-size:18px;margin:0}
-.section-head span{font-size:11px;color:var(--muted)}
-.stats{
- display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:18px;
-}
-.stat{
- background:var(--panel);border:1px solid var(--line);
- border-radius:15px;padding:16px;display:flex;align-items:center;gap:12px;
-}
-.stat-icon{
- width:42px;height:42px;border-radius:12px;
- display:grid;place-items:center;font-size:20px;background:#292343;
-}
-.stat small{display:block;color:var(--muted);font-size:10px}
-.stat strong{font-size:19px}
-.games{
- display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
-}
+.section-head small{font-size:10px;color:var(--muted)}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .game{
- background:var(--panel);border:1px solid var(--line);
- border-radius:17px;overflow:hidden;transition:.2s;
+ overflow:hidden;position:relative;
+ border:1px solid #293c62;border-radius:17px;
+ background:linear-gradient(145deg,#111a32,#090e1d);
+ transition:.25s;
 }
-.game:hover{transform:translateY(-4px);border-color:#6957a7}
+.game:hover{transform:translateY(-6px);border-color:#8b6cff;box-shadow:0 10px 35px #5c43c333}
 .game-art{
- height:125px;display:grid;place-items:center;font-size:53px;
- position:relative;overflow:hidden;
+ height:160px;display:grid;place-items:center;position:relative;overflow:hidden;
 }
-.game-art:after{
- content:"";position:absolute;width:150px;height:150px;
- border:1px solid #ffffff18;border-radius:50%;
- box-shadow:0 0 0 20px #ffffff08,0 0 0 40px #ffffff05;
+.game-art:before,.game-art:after{
+ content:"";position:absolute;border:1px solid #ffffff30;border-radius:50%;
+ width:150px;height:150px;
 }
-.art-spin{background:linear-gradient(130deg,#48235f,#9d477a)}
-.art-guess{background:linear-gradient(130deg,#164c63,#287f9b)}
-.art-memory{background:linear-gradient(130deg,#3b306d,#6c56ac)}
-.art-puzzle{background:linear-gradient(130deg,#5a3c21,#bd8245)}
+.game-art:after{width:210px;height:210px}
+.art1{background:radial-gradient(circle,#752a9b,#241348 65%,#10152d)}
+.art2{background:radial-gradient(circle,#087a9c,#102a53 65%,#0b1028)}
+.art3{background:radial-gradient(circle,#5735a6,#191844 65%,#0b1028)}
+.art4{background:radial-gradient(circle,#a46b26,#42243a 65%,#0b1028)}
+.art-icon{font-size:66px;z-index:1;filter:drop-shadow(0 0 18px #c2a1ff);animation:float 5s infinite}
 .game-body{padding:15px}
-.game-top{display:flex;justify-content:space-between;align-items:center}
-.game h3{font-size:14px;margin:0}
-.tag{font-size:9px;color:#bdaaff;background:#30274f;padding:5px 8px;border-radius:7px}
-.game p{color:var(--muted);font-size:11px;line-height:1.8;min-height:37px}
-.game-bottom{display:flex;justify-content:space-between;align-items:center}
-.game-bottom small{color:#aab2c8;font-size:10px}
+.game-body h3{font-size:14px;margin:0}
+.game-body p{font-size:11px;color:var(--muted);line-height:1.8;min-height:38px}
+.game-footer{display:flex;justify-content:space-between;align-items:center}
+.game-footer small{color:var(--cyan);font-size:10px}
 .play{
- background:#292443;color:white;border:1px solid #4b3e7b;
+ background:#302252;border:1px solid #6a53a7;color:white;
  border-radius:9px;padding:8px 14px;font-size:11px;
 }
-.play:hover{background:#4a397d}
-.lower{
- display:grid;grid-template-columns:1.1fr .9fr;gap:15px;margin-top:20px;
-}
+.play:hover{background:#6544ae}
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
 .panel{
- background:var(--panel);border:1px solid var(--line);
+ background:#0e172b;border:1px solid #293c5b;
  border-radius:16px;padding:18px;
 }
-.panel h3{font-size:14px;margin:0 0 16px}
-.progress-row{display:flex;justify-content:space-between;font-size:11px;color:#bbc3d8}
-.progress{
- height:8px;border-radius:10px;background:#292e43;margin-top:10px;overflow:hidden;
+.panel h3{font-size:14px;margin:0 0 15px}
+.mission-row{
+ background:#17233d;padding:12px;border-radius:11px;
+ display:flex;gap:12px;align-items:center;
 }
-.progress span{
- display:block;height:100%;width:35%;
- background:linear-gradient(90deg,#8562ff,#51a6ff);border-radius:10px;
-}
-.mission{
- display:flex;align-items:center;gap:12px;margin-top:15px;
- padding:12px;background:#191e32;border-radius:12px;
-}
-.mission-icon{font-size:24px}
-.mission p{font-size:11px;margin:0;line-height:1.8}
-.mission small{color:var(--muted)}
-.leader-row{
- display:flex;align-items:center;justify-content:space-between;
- padding:10px 0;border-bottom:1px solid var(--line);font-size:11px;
-}
-.leader-row:last-child{border:0}
-.leader-name{display:flex;align-items:center;gap:9px}
-.rank{color:var(--gold);font-weight:bold;width:18px}
-.leader-score{color:#bbaaff}
-footer{text-align:center;color:#69738f;font-size:10px;padding:35px 0 5px}
+.mission-row p{font-size:11px;line-height:1.8}
+.progress{height:7px;background:#27344c;border-radius:10px;overflow:hidden}
+.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#9867ff,#4ce5ff)}
+.leader{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #263450;font-size:11px}
+.leader:last-child{border:0}
+.leader span:last-child{color:var(--cyan)}
+footer{text-align:center;padding:35px 0;color:#647492;font-size:10px}
 
-/* Game modal */
+/* Game window */
 .modal{
- position:fixed;inset:0;background:#050711dd;z-index:30;
- display:none;align-items:center;justify-content:center;padding:15px;
+ display:none;position:fixed;inset:0;z-index:20;
+ background:#02040ddd;backdrop-filter:blur(10px);
+ align-items:center;justify-content:center;padding:15px;
 }
 .modal.show{display:flex}
 .modal-box{
- width:min(470px,100%);background:#151a2c;border:1px solid #41466a;
- border-radius:20px;padding:22px;box-shadow:0 25px 90px #0009;
+ width:min(460px,100%);padding:23px;
+ border:1px solid #6555a2;border-radius:19px;
+ background:linear-gradient(145deg,#171c39,#090e20);
+ box-shadow:0 0 60px #7046ff55;
 }
 .modal-head{display:flex;justify-content:space-between;align-items:center}
 .modal-head h2{font-size:17px}
-.close{
- background:#292e43;border:0;color:white;border-radius:9px;
- width:34px;height:34px;font-size:18px;
-}
-.game-area{text-align:center;padding:20px 0 5px}
-.game-area p{color:#b5bdd2;font-size:12px;line-height:2}
-.big-number{font-size:45px;color:#b9a5ff;font-weight:900}
-.game-input{
- width:100%;padding:12px;border-radius:10px;
- border:1px solid #3c4564;background:#0c1020;color:white;
- text-align:center;margin:10px 0;
-}
-.feedback{min-height:30px;color:#c3b4ff;font-size:12px;margin:10px}
+.close{background:#252e4b;border:0;color:white;border-radius:8px;padding:6px 12px}
+.game-area{text-align:center;padding:15px 0}
+.game-area p{font-size:12px;color:#aab7d2;line-height:2}
 .slot-row{display:flex;justify-content:center;gap:10px;margin:20px}
 .slot{
- width:65px;height:65px;background:#f4f1ff;color:#18152b;
- border-radius:13px;display:grid;place-items:center;font-size:32px;
+ width:65px;height:65px;display:grid;place-items:center;
+ border-radius:12px;background:#e9e4ff;color:#16152c;font-size:30px;
 }
-.memory-grid{
- display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
- max-width:300px;margin:15px auto;
+.primary{
+ border:0;background:linear-gradient(100deg,#9659ff,#398cff);
+ color:white;border-radius:10px;padding:12px 22px;
 }
-.memory-card{
- aspect-ratio:1;background:#292449;border:1px solid #51437d;
- border-radius:10px;color:white;font-size:24px;
+.input{
+ width:100%;background:#080e20;border:1px solid #405179;
+ border-radius:10px;padding:12px;color:white;text-align:center;
 }
-.memory-card.open{background:#3b315f}
-.secondary{
- background:#2c3150;border:1px solid #414b6e;
- border-radius:9px;color:white;padding:10px 16px;
-}
+.feedback{min-height:30px;color:#6ce6ff;font-size:12px;margin-top:12px}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:280px;margin:15px auto}
+.memory-card{aspect-ratio:1;border:1px solid #6952a5;background:#272044;border-radius:10px;color:white;font-size:24px}
 @media(max-width:950px){
- .sidebar{width:205px}.main{margin-right:205px;width:calc(100% - 205px);padding:0 20px}
- .games{grid-template-columns:repeat(2,1fr)}
- .stats{grid-template-columns:repeat(2,1fr)}
+ .sidebar{width:190px}.main{margin-right:190px;width:calc(100% - 190px)}
+ .planet{left:1%;opacity:.6}.games{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:650px){
- .sidebar{width:65px;padding:18px 8px}
- .brand{padding:0 4px 25px}
- .brand-name,.nav-label,.nav button span:not(.nav-icon),.mini-profile div:not(.avatar){display:none}
- .nav button{justify-content:center;padding:13px 5px}
- .nav-icon{font-size:20px}
- .mini-profile{padding:7px;justify-content:center}
- .main{margin-right:65px;width:calc(100% - 65px);padding:0 12px 30px}
- .topbar{height:65px}
- .breadcrumb{font-size:10px}
- .coin-pill{font-size:10px;padding:8px}
- .hero{padding:24px 18px;min-height:240px}
- .hero-art{font-size:65px;left:4%;top:auto;bottom:10px;opacity:.65}
- .hero-content{max-width:100%}
- .hero h1{font-size:24px}
+ .sidebar{width:62px;padding:16px 6px}
+ .logo{padding:0 3px 28px}.logo strong,.nav-title,.nav-text,.sidebar-profile div:not(.avatar){display:none}
+ nav button{text-align:center;padding:12px 0}
+ .nav-icon{width:auto}
+ .sidebar-profile{justify-content:center;padding:6px}
+ .main{margin-right:62px;width:calc(100% - 62px);padding:0 11px 25px}
+ .topbar{height:62px}.hero{min-height:310px}
+ .hero-content{padding:25px 17px}
+ .planet{width:150px;height:150px;left:5%;top:auto;bottom:-50px;opacity:.45}
+ .planet:before{width:200px;height:50px;top:50px;left:-25px}
+ .stats{grid-template-columns:repeat(2,1fr);gap:8px}
+ .stat{padding:11px}.stat strong{font-size:17px}
  .games{grid-template-columns:1fr}
- .stats{gap:8px}
- .stat{padding:10px;gap:7px}
- .stat strong{font-size:15px}
- .stat-icon{width:34px;height:34px;font-size:16px}
+ .game-art{height:135px}
  .lower{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
-<div class="app">
+<canvas id="stars"></canvas>
+<div class="space-glow"></div>
 
+<div class="layout">
 <aside class="sidebar">
- <div class="brand">
-  <div class="brand-icon">🌐</div>
-  <div class="brand-name">TINY<span>WORLD</span></div>
+ <div class="logo">
+  <div class="logo-icon">🌌</div>
+  <strong>TINY<span>WORLD</span></strong>
  </div>
-
- <div class="nav-label" data-fa="منوی اصلی" data-en="MAIN MENU">منوی اصلی</div>
- <nav class="nav">
-  <button class="active" onclick="goHome()"><span class="nav-icon">⌂</span><span data-fa="داشبورد" data-en="Dashboard">داشبورد</span></button>
-  <button onclick="scrollToGames()"><span class="nav-icon">🎮</span><span data-fa="مرکز بازی‌ها" data-en="Game Center">مرکز بازی‌ها</span></button>
-  <button onclick="openProfile()"><span class="nav-icon">👤</span><span data-fa="پروفایل من" data-en="My Profile">پروفایل من</span></button>
-  <button onclick="scrollToMission()"><span class="nav-icon">🎯</span><span data-fa="مأموریت‌ها" data-en="Missions">مأموریت‌ها</span></button>
-  <button onclick="scrollToLeaders()"><span class="nav-icon">🏆</span><span data-fa="رتبه‌بندی" data-en="Leaderboard">رتبه‌بندی</span></button>
+ <div class="nav-title" data-fa="جهت‌یابی" data-en="NAVIGATION">جهت‌یابی</div>
+ <nav>
+  <button class="active" onclick="home()"><span class="nav-icon">⌂</span><span class="nav-text" data-fa="خانه" data-en="Home">خانه</span></button>
+  <button onclick="games()"><span class="nav-icon">🎮</span><span class="nav-text" data-fa="بازی‌ها" data-en="Games">بازی‌ها</span></button>
+  <button onclick="profile()"><span class="nav-icon">👤</span><span class="nav-text" data-fa="پروفایل" data-en="Profile">پروفایل</span></button>
+  <button onclick="mission()"><span class="nav-icon">🚀</span><span class="nav-text" data-fa="مأموریت‌ها" data-en="Missions">مأموریت‌ها</span></button>
+  <button onclick="ranking()"><span class="nav-icon">🏆</span><span class="nav-text" data-fa="رتبه‌بندی" data-en="Ranking">رتبه‌بندی</span></button>
  </nav>
-
- <div class="sidebar-bottom">
-  <div class="mini-profile">
-   <div class="avatar">👑</div>
-   <div><strong id="sideName">Player One</strong><small data-fa="بازیکن تازه‌وارد" data-en="New Player">بازیکن تازه‌وارد</small></div>
-  </div>
+ <div class="sidebar-profile">
+  <div class="avatar">👨‍🚀</div>
+  <div><b id="sideName">Space Player</b><small data-fa="مسافر جهان TinyWorld" data-en="TinyWorld explorer">مسافر جهان TinyWorld</small></div>
  </div>
 </aside>
 
 <main class="main">
  <header class="topbar">
-  <div class="breadcrumb" data-fa="دنیای بازی‌ها / داشبورد" data-en="Game World / Dashboard">دنیای بازی‌ها / داشبورد</div>
-  <div class="top-actions">
-   <div class="coin-pill">🪙 <span id="topCoins">1000</span></div>
-   <button class="lang-btn" onclick="toggleLanguage()" id="languageButton">EN</button>
+  <small data-fa="مرکز فرماندهی فضایی / داشبورد" data-en="SPACE COMMAND / DASHBOARD">مرکز فرماندهی فضایی / داشبورد</small>
+  <div class="actions">
+   <div class="coin">🪙 <span id="coins">1000</span></div>
+   <button class="lang" onclick="language()" id="langButton">EN</button>
   </div>
  </header>
 
  <div class="content">
   <section class="hero">
    <div class="hero-content">
-    <div class="eyebrow" data-fa="دنیای تو، قوانین تو" data-en="YOUR WORLD. YOUR RULES.">دنیای تو، قوانین تو</div>
-    <h1 data-fa="بازی کن. پیشرفت کن. افسانه شو." data-en="PLAY. LEVEL UP. BECOME LEGEND.">بازی کن. پیشرفت کن. افسانه شو.</h1>
-    <p data-fa="به دنیای TinyWorld خوش آمدی؛ جایی برای رقابت، کشف بازی‌های تازه و ساختن رکوردهای جدید." data-en="Welcome to TinyWorld — discover games, compete, and build your own records.">به دنیای TinyWorld خوش آمدی؛ جایی برای رقابت، کشف بازی‌های تازه و ساختن رکوردهای جدید.</p>
-    <button class="primary" onclick="scrollToGames()" data-fa="ورود به مرکز بازی‌ها ←" data-en="Explore Games →">ورود به مرکز بازی‌ها ←</button>
+    <div class="eyebrow" data-fa="✦ به جهان بعدی خوش آمدی ✦" data-en="✦ WELCOME TO THE NEXT WORLD ✦">✦ به جهان بعدی خوش آمدی ✦</div>
+    <h1 data-fa="فراتر از زمین،<br>فراتر از بازی!" data-en="BEYOND EARTH,<br>BEYOND GAMES!">فراتر از زمین،<br>فراتر از بازی!</h1>
+    <p data-fa="یک جهان دیجیتالی تازه را کشف کن. بازی کن، مهارت بساز، سکه جمع کن و به قهرمان جهان TinyWorld تبدیل شو." data-en="Explore a new digital universe. Play, build skills, collect coins and become a TinyWorld legend.">یک جهان دیجیتالی تازه را کشف کن. بازی کن، مهارت بساز، سکه جمع کن و به قهرمان جهان TinyWorld تبدیل شو.</p>
+    <button class="cta" onclick="games()" data-fa="🚀 ورود به جهان بازی‌ها" data-en="🚀 EXPLORE GAMES">🚀 ورود به جهان بازی‌ها</button>
    </div>
-   <div class="hero-art">🎮</div>
+   <div class="planet"></div>
   </section>
 
   <section class="stats">
-   <div class="stat"><div class="stat-icon">🪙</div><div><small data-fa="موجودی سکه" data-en="Coin Balance">موجودی سکه</small><strong id="statCoins">1000</strong></div></div>
-   <div class="stat"><div class="stat-icon">⚡</div><div><small data-fa="سطح بازیکن" data-en="Player Level">سطح بازیکن</small><strong id="level">1</strong></div></div>
-   <div class="stat"><div class="stat-icon">🏅</div><div><small data-fa="تجربه کسب‌شده" data-en="Experience">تجربه کسب‌شده</small><strong id="xp">0 XP</strong></div></div>
-   <div class="stat"><div class="stat-icon">🎮</div><div><small data-fa="بازی‌های انجام‌شده" data-en="Games Played">بازی‌های انجام‌شده</small><strong id="played">0</strong></div></div>
+   <div class="stat"><span class="stat-icon">🪙</span><small data-fa="موجودی سکه" data-en="COINS">موجودی سکه</small><strong id="statCoins">1000</strong></div>
+   <div class="stat"><span class="stat-icon">🌟</span><small data-fa="سطح فضانورد" data-en="LEVEL">سطح فضانورد</small><strong id="level">1</strong></div>
+   <div class="stat"><span class="stat-icon">⚡</span><small data-fa="تجربه" data-en="EXPERIENCE">تجربه</small><strong id="xp">0 XP</strong></div>
+   <div class="stat"><span class="stat-icon">🎮</span><small data-fa="بازی‌ها" data-en="GAMES PLAYED">بازی‌ها</small><strong id="played">0</strong></div>
   </section>
 
   <div class="section-head" id="gameSection">
-   <h2 data-fa="بازی‌های منتخب" data-en="Featured Games">بازی‌های منتخب</h2>
-   <span data-fa="بازی خود را انتخاب کن" data-en="Choose your game">بازی خود را انتخاب کن</span>
+   <h2 data-fa="🌠 جهان‌های قابل کشف" data-en="🌠 WORLDS TO EXPLORE">🌠 جهان‌های قابل کشف</h2>
+   <small data-fa="یک مأموریت انتخاب کن" data-en="SELECT YOUR MISSION">یک مأموریت انتخاب کن</small>
   </div>
 
   <section class="games">
    <article class="game">
-    <div class="game-art art-spin">🎰</div>
+    <div class="game-art art1"><span class="art-icon">🎰</span></div>
     <div class="game-body">
-     <div class="game-top"><h3>TinyWorld Spin</h3><span class="tag" data-fa="شانس" data-en="LUCK">شانس</span></div>
-     <p data-fa="چرخ را بچرخان و با سکه‌های مجازی جایزه بگیر." data-en="Spin the wheel and win virtual coins.">چرخ را بچرخان و با سکه‌های مجازی جایزه بگیر.</p>
-     <div class="game-bottom"><small>🪙 80 <span data-fa="سکه" data-en="coins">سکه</span></small><button class="play" onclick="openGame('spin')" data-fa="بازی کن ←" data-en="Play →">بازی کن ←</button></div>
+     <h3>TinyWorld Spin</h3>
+     <p data-fa="چرخ شانس کهکشانی را بچرخان و جایزه مجازی بگیر." data-en="Spin the cosmic wheel and win virtual rewards.">چرخ شانس کهکشانی را بچرخان و جایزه مجازی بگیر.</p>
+     <div class="game-footer"><small>🪙 80 COINS</small><button class="play" onclick="openGame('spin')" data-fa="شروع مأموریت ←" data-en="PLAY →">شروع مأموریت ←</button></div>
     </div>
    </article>
-
    <article class="game">
-    <div class="game-art art-guess">🔢</div>
+    <div class="game-art art2"><span class="art-icon">🔢</span></div>
     <div class="game-body">
-     <div class="game-top"><h3 data-fa="شکار عدد" data-en="Number Hunt">شکار عدد</h3><span class="tag" data-fa="هوش" data-en="BRAIN">هوش</span></div>
-     <p data-fa="عدد پنهان را در کمترین تلاش پیدا کن." data-en="Find the hidden number in as few tries as possible.">عدد پنهان را در کمترین تلاش پیدا کن.</p>
-     <div class="game-bottom"><small>⚡ <span data-fa="جایزه 50 سکه" data-en="50 coin reward">جایزه 50 سکه</span></small><button class="play" onclick="openGame('guess')" data-fa="بازی کن ←" data-en="Play →">بازی کن ←</button></div>
+     <h3 data-fa="شکارچی اعداد" data-en="NUMBER HUNTER">شکارچی اعداد</h3>
+     <p data-fa="کد مخفی را پیدا کن و هوش فضایی خود را آزمایش کن." data-en="Find the secret code and test your cosmic brain.">کد مخفی را پیدا کن و هوش فضایی خود را آزمایش کن.</p>
+     <div class="game-footer"><small>⚡ 50 COINS</small><button class="play" onclick="openGame('guess')" data-fa="شروع مأموریت ←" data-en="PLAY →">شروع مأموریت ←</button></div>
     </div>
    </article>
-
    <article class="game">
-    <div class="game-art art-memory">🧠</div>
+    <div class="game-art art3"><span class="art-icon">🧠</span></div>
     <div class="game-body">
-     <div class="game-top"><h3 data-fa="حافظه طلایی" data-en="Golden Memory">حافظه طلایی</h3><span class="tag" data-fa="تمرکز" data-en="FOCUS">تمرکز</span></div>
-     <p data-fa="جفت تصاویر مشابه را پیدا کن و حافظه‌ات را بسنج." data-en="Match identical cards and test your memory.">جفت تصاویر مشابه را پیدا کن و حافظه‌ات را بسنج.</p>
-     <div class="game-bottom"><small>⚡ <span data-fa="جایزه 70 سکه" data-en="70 coin reward">جایزه 70 سکه</span></small><button class="play" onclick="openGame('memory')" data-fa="بازی کن ←" data-en="Play →">بازی کن ←</button></div>
+     <h3 data-fa="حافظه کهکشانی" data-en="GALAXY MEMORY">حافظه کهکشانی</h3>
+     <p data-fa="جفت نمادهای فضایی را پیدا کن و حافظه‌ات را تقویت کن." data-en="Match cosmic symbols and sharpen your memory.">جفت نمادهای فضایی را پیدا کن و حافظه‌ات را تقویت کن.</p>
+     <div class="game-footer"><small>⚡ 70 COINS</small><button class="play" onclick="openGame('memory')" data-fa="شروع مأموریت ←" data-en="PLAY →">شروع مأموریت ←</button></div>
     </div>
    </article>
   </section>
 
   <div class="lower">
    <section class="panel" id="missionSection">
-    <h3 data-fa="🎯 مأموریت امروز" data-en="🎯 Today's Mission">🎯 مأموریت امروز</h3>
-    <div class="progress-row"><span data-fa="یک بازی انجام بده" data-en="Play one game">یک بازی انجام بده</span><span id="missionProgress">0 / 1</span></div>
-    <div class="progress"><span id="missionBar"></span></div>
-    <div class="mission">
-     <div class="mission-icon">🎁</div>
-     <div><p data-fa="با انجام یک بازی، مأموریت روزانه را کامل کن." data-en="Complete one game to finish today's mission.">با انجام یک بازی، مأموریت روزانه را کامل کن.</p><small data-fa="جایزه: 30 سکه" data-en="Reward: 30 coins">جایزه: 30 سکه</small></div>
-    </div>
+    <h3 data-fa="🚀 مأموریت روزانه" data-en="🚀 DAILY MISSION">🚀 مأموریت روزانه</h3>
+    <p style="font-size:11px;color:#aebbd4" data-fa="یک بازی را کامل کن و پاداش بگیر." data-en="Complete one game and earn your reward.">یک بازی را کامل کن و پاداش بگیر.</p>
+    <div class="progress"><span id="bar"></span></div>
+    <p style="font-size:10px;color:var(--cyan)" id="missionStatus">0 / 1</p>
+    <div class="mission-row"><span style="font-size:25px">🎁</span><p data-fa="جایزه مأموریت: ۳۰ سکه مجازی" data-en="Mission reward: 30 virtual coins">جایزه مأموریت: ۳۰ سکه مجازی</p></div>
    </section>
-
-   <section class="panel" id="leaderSection">
-    <h3 data-fa="🏆 برترین بازیکنان (نمونه)" data-en="🏆 Top Players (Demo)">🏆 برترین بازیکنان (نمونه)</h3>
-    <div class="leader-row"><div class="leader-name"><span class="rank">01</span>👑 Dragon</div><span class="leader-score">8,450 XP</span></div>
-    <div class="leader-row"><div class="leader-name"><span class="rank">02</span>⚡ Shadow</div><span class="leader-score">6,200 XP</span></div>
-    <div class="leader-row"><div class="leader-name"><span class="rank">03</span>🔥 Nova</div><span class="leader-score">4,890 XP</span></div>
-    <div class="leader-row"><div class="leader-name"><span class="rank">04</span>⭐ <span id="leaderPlayer">Player One</span></div><span class="leader-score" id="leaderXP">0 XP</span></div>
+   <section class="panel" id="rankingSection">
+    <h3 data-fa="🏆 قهرمانان کهکشان (نمونه)" data-en="🏆 GALAXY LEADERS (DEMO)">🏆 قهرمانان کهکشان (نمونه)</h3>
+    <div class="leader"><span>🥇 Dragon</span><span>8,450 XP</span></div>
+    <div class="leader"><span>🥈 Shadow</span><span>6,200 XP</span></div>
+    <div class="leader"><span>🥉 Nova</span><span>4,890 XP</span></div>
+    <div class="leader"><span>⭐ <b id="leaderName">Space Player</b></span><span id="leaderXP">0 XP</span></div>
    </section>
   </div>
 
-  <section class="panel" style="margin-top:18px" id="profileSection">
-   <h3 data-fa="👤 پروفایل بازیکن" data-en="👤 Player Profile">👤 پروفایل بازیکن</h3>
-   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-    <div class="avatar" style="width:55px;height:55px;font-size:26px">👑</div>
-    <div style="flex:1">
-     <strong id="profileName">Player One</strong>
-     <div style="color:var(--muted);font-size:11px;margin-top:4px" data-fa="بازیکن سطح" data-en="Player Level">بازیکن سطح</div>
-    </div>
-    <button class="secondary" onclick="changeName()" data-fa="تغییر نام" data-en="Edit Name">تغییر نام</button>
+  <section class="panel" id="profileSection" style="margin-top:18px">
+   <h3 data-fa="👨‍🚀 هویت فضانورد" data-en="👨‍🚀 YOUR SPACE IDENTITY">👨‍🚀 هویت فضانورد</h3>
+   <div style="display:flex;align-items:center;gap:14px">
+    <div class="avatar" style="width:55px;height:55px">👨‍🚀</div>
+    <div style="flex:1"><b id="profileName">Space Player</b><p style="color:var(--muted);font-size:10px" data-fa="کاوشگر جهان TinyWorld" data-en="TinyWorld explorer">کاوشگر جهان TinyWorld</p></div>
+    <button class="play" onclick="editName()" data-fa="تغییر نام" data-en="EDIT NAME">تغییر نام</button>
    </div>
   </section>
-
-  <footer>© 2026 TINYWORLD · <span data-fa="تمام سکه‌ها مجازی هستند و ارزش پول واقعی ندارند." data-en="All coins are virtual and have no real-world cash value.">تمام سکه‌ها مجازی هستند و ارزش پول واقعی ندارند.</span></footer>
+  <footer>© 2026 TINYWORLD · EXPLORE THE UNIVERSE</footer>
  </div>
 </main>
 </div>
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeGame()">
  <div class="modal-box">
-  <div class="modal-head">
-   <h2 id="modalTitle">بازی</h2>
-   <button class="close" onclick="closeGame()">×</button>
-  </div>
+  <div class="modal-head"><h2 id="modalTitle">GAME</h2><button class="close" onclick="closeGame()">✕</button></div>
   <div class="game-area" id="gameArea"></div>
  </div>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
+/* Animated star field */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let stars=[];
+function resize(){
+ canvas.width=innerWidth*devicePixelRatio;
+ canvas.height=innerHeight*devicePixelRatio;
+ ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+ stars=Array.from({length:Math.min(180,Math.floor(innerWidth/5))},()=>({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  r:Math.random()*1.5+.2,s:Math.random()*.35+.05,a:Math.random()
+ }));
+}
+function animate(){
+ ctx.clearRect(0,0,innerWidth,innerHeight);
+ stars.forEach(s=>{
+  s.y+=s.s;
+  if(s.y>innerHeight){s.y=0;s.x=Math.random()*innerWidth}
+  s.a+=.025;
+  ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+  ctx.fillStyle=`rgba(170,190,255,${.25+Math.abs(Math.sin(s.a))*.65})`;
+  ctx.fill();
+ });
+ requestAnimationFrame(animate);
+}
+addEventListener("resize",resize);resize();animate();
+
+/* Player data */
 let lang=localStorage.getItem("tw_lang")||"fa";
 let coins=Number(localStorage.getItem("tw_coins")??1000);
 let xp=Number(localStorage.getItem("tw_xp")||0);
 let played=Number(localStorage.getItem("tw_played")||0);
-let player=localStorage.getItem("tw_player")||"Player One";
-let missionDone=localStorage.getItem("tw_mission")===(new Date().toDateString());
-let dailyClaimed=localStorage.getItem("tw_bonus")===(new Date().toDateString());
-let secret=0,tries=0,memCards=[],memOpen=[],memMatched=0,memLocked=false;
+let player=localStorage.getItem("tw_player")||"Space Player";
+let missionDone=localStorage.getItem("tw_mission")===new Date().toDateString();
 
 function save(){
  localStorage.setItem("tw_coins",coins);
@@ -415,144 +418,130 @@ function save(){
  update();
 }
 function update(){
- $("topCoins").textContent=coins;
- $("statCoins").textContent=coins;
- $("xp").textContent=xp+" XP";
- $("played").textContent=played;
- const level=Math.floor(xp/100)+1;
- $("level").textContent=level;
- $("sideName").textContent=player;
- $("profileName").textContent=player;
- $("leaderPlayer").textContent=player;
- $("leaderXP").textContent=xp+" XP";
- $("missionProgress").textContent=missionDone?"1 / 1":"0 / 1";
- $("missionBar").style.width=missionDone?"100%":"0%";
+ document.getElementById("coins").textContent=coins;
+ document.getElementById("statCoins").textContent=coins;
+ document.getElementById("xp").textContent=xp+" XP";
+ document.getElementById("level").textContent=Math.floor(xp/100)+1;
+ document.getElementById("played").textContent=played;
+ document.getElementById("sideName").textContent=player;
+ document.getElementById("profileName").textContent=player;
+ document.getElementById("leaderName").textContent=player;
+ document.getElementById("leaderXP").textContent=xp+" XP";
+ document.getElementById("missionStatus").textContent=missionDone?"1 / 1":"0 / 1";
+ document.getElementById("bar").style.width=missionDone?"100%":"0%";
 }
-function addXP(amount){
- xp+=amount;save();
-}
+function addXP(n){xp+=n;save()}
 function finishGame(){
  played++;
  if(!missionDone){
   missionDone=true;
   localStorage.setItem("tw_mission",new Date().toDateString());
   coins+=30;
-  alert(lang==="fa"?"مأموریت روزانه کامل شد! ۳۰ سکه جایزه گرفتی.":"Daily mission completed! You earned 30 coins.");
+  alert(lang==="fa"?"مأموریت کامل شد! ۳۰ سکه گرفتی.":"Mission completed! 30 coins earned.");
  }
  save();
 }
-function toggleLanguage(){
+function language(){
  lang=lang==="fa"?"en":"fa";
  localStorage.setItem("tw_lang",lang);
  document.documentElement.lang=lang;
  document.documentElement.dir=lang==="fa"?"rtl":"ltr";
- $("languageButton").textContent=lang==="fa"?"EN":"فا";
- document.querySelectorAll("[data-fa]").forEach(el=>{
-  el.textContent=el.dataset[lang];
- });
- update();
+ document.getElementById("langButton").textContent=lang==="fa"?"EN":"FA";
+ document.querySelectorAll("[data-fa]").forEach(el=>el.innerHTML=el.dataset[lang]);
 }
-function goHome(){window.scrollTo({top:0,behavior:"smooth"})}
-function scrollToGames(){$("gameSection").scrollIntoView({behavior:"smooth"})}
-function scrollToMission(){$("missionSection").scrollIntoView({behavior:"smooth"})}
-function scrollToLeaders(){$("leaderSection").scrollIntoView({behavior:"smooth"})}
-function openProfile(){$("profileSection").scrollIntoView({behavior:"smooth"})}
-function changeName(){
- const name=prompt(lang==="fa"?"نام بازیکن جدید را وارد کن:":"Enter your player name:",player);
- if(name && name.trim()){
-  player=name.trim().slice(0,20);save();
- }
+function home(){scrollTo({top:0,behavior:"smooth"})}
+function games(){document.getElementById("gameSection").scrollIntoView({behavior:"smooth"})}
+function mission(){document.getElementById("missionSection").scrollIntoView({behavior:"smooth"})}
+function ranking(){document.getElementById("rankingSection").scrollIntoView({behavior:"smooth"})}
+function profile(){document.getElementById("profileSection").scrollIntoView({behavior:"smooth"})}
+function editName(){
+ let n=prompt(lang==="fa"?"نام جدید:":"New name:",player);
+ if(n&&n.trim()){player=n.trim().slice(0,20);save()}
 }
+
+/* Games */
 function openGame(type){
- $("modal").classList.add("show");
- if(type==="spin")showSpin();
- if(type==="guess")showGuess();
- if(type==="memory")showMemory();
+ document.getElementById("modal").classList.add("show");
+ if(type==="spin")spinGame();
+ if(type==="guess")guessGame();
+ if(type==="memory")memoryGame();
 }
-function closeGame(){$("modal").classList.remove("show")}
-function showSpin(){
- $("modalTitle").textContent="🎰 TinyWorld Spin";
- $("gameArea").innerHTML=`
+function closeGame(){document.getElementById("modal").classList.remove("show")}
+function spinGame(){
+ document.getElementById("modalTitle").textContent="🎰 TINYWORLD SPIN";
+ document.getElementById("gameArea").innerHTML=`
  <p>${lang==="fa"?"هر چرخش ۸۰ سکه هزینه دارد. سه نماد یکسان ۴۰۰ سکه جایزه دارد.":"Each spin costs 80 coins. Three matching symbols win 400 coins."}</p>
- <div class="slot-row"><div class="slot" id="sp1">🍒</div><div class="slot" id="sp2">⭐</div><div class="slot" id="sp3">💎</div></div>
- <button class="primary" onclick="spinNow()">${lang==="fa"?"چرخاندن — ۸۰ سکه":"SPIN — 80 COINS"}</button>
- <div class="feedback" id="gameFeedback"></div>`;
+ <div class="slot-row"><div class="slot" id="s1">🌟</div><div class="slot" id="s2">💎</div><div class="slot" id="s3">🚀</div></div>
+ <button class="primary" onclick="spinNow()">${lang==="fa"?"چرخاندن — ۸۰ سکه":"SPIN — 80 COINS"}</button><div class="feedback" id="feedback"></div>`;
 }
 function spinNow(){
- if(coins<80){$("gameFeedback").textContent=lang==="fa"?"سکه کافی نداری.":"Not enough coins.";return}
+ if(coins<80){feedback.textContent=lang==="fa"?"سکه کافی نداری.":"Not enough coins.";return}
  coins-=80;
- const symbols=["🍒","🍋","⭐","💎","🍇","7️⃣"];
- let a=symbols[Math.floor(Math.random()*6)];
- let b=symbols[Math.floor(Math.random()*6)];
- let c=symbols[Math.floor(Math.random()*6)];
- $("sp1").textContent=a;$("sp2").textContent=b;$("sp3").textContent=c;
- let prize=0;
- if(a===b&&b===c)prize=400;
- else if(a===b||b===c||a===c)prize=120;
- coins+=prize;
- if(prize>0)addXP(10);
- save();
- $("gameFeedback").textContent=prize?(lang==="fa"?"برنده شدی! "+prize+" سکه گرفتی.":"You won "+prize+" coins!"):(lang==="fa"?"این بار برنده نشدی.":"No win this time.");
+ let a=["🌟","💎","🚀","🪐","👾","☄️"];
+ let v=[0,0,0].map(()=>a[Math.floor(Math.random()*a.length)]);
+ ["s1","s2","s3"].forEach((id,i)=>document.getElementById(id).textContent=v[i]);
+ let prize=v[0]===v[1]&&v[1]===v[2]?400:v[0]===v[1]||v[1]===v[2]||v[0]===v[2]?120:0;
+ coins+=prize;if(prize)addXP(10);save();
+ feedback.textContent=prize?(lang==="fa"?"برنده شدی! "+prize+" سکه گرفتی.":"You won "+prize+" coins!"):(lang==="fa"?"این بار برنده نشدی.":"No win this time.");
 }
-function showGuess(){
+let secret=0,tries=0;
+function guessGame(){
  secret=Math.floor(Math.random()*50)+1;tries=0;
- $("modalTitle").textContent=lang==="fa"?"🔢 شکار عدد":"🔢 Number Hunt";
- $("gameArea").innerHTML=`
- <p>${lang==="fa"?"یک عدد بین ۱ تا ۵۰ پیدا کن.":"Find a number between 1 and 50."}</p>
- <div class="big-number">?</div>
- <input class="game-input" id="guessInput" type="number" min="1" max="50" placeholder="${lang==="fa"?"عدد خود را بنویس":"Enter your guess"}">
- <button class="primary" onclick="guessNow()">${lang==="fa"?"امتحان کن":"Guess"}</button>
- <div class="feedback" id="gameFeedback"></div>`;
+ document.getElementById("modalTitle").textContent="🔢 NUMBER HUNTER";
+ document.getElementById("gameArea").innerHTML=`
+ <p>${lang==="fa"?"یک عدد بین ۱ تا ۵۰ حدس بزن.":"Guess a number between 1 and 50."}</p>
+ <input class="input" id="guess" type="number" min="1" max="50" placeholder="${lang==="fa"?"عدد را وارد کن":"Enter number"}">
+ <br><br><button class="primary" onclick="checkGuess()">${lang==="fa"?"بررسی":"CHECK"}</button><div class="feedback" id="feedback"></div>`;
 }
-function guessNow(){
- let val=Number($("guessInput").value);tries++;
- if(!val||val<1||val>50){$("gameFeedback").textContent=lang==="fa"?"عدد باید بین ۱ تا ۵۰ باشد.":"Enter a number from 1 to 50.";return}
- if(val===secret){
+function checkGuess(){
+ let n=Number(guess.value);tries++;
+ if(!n||n<1||n>50){feedback.textContent=lang==="fa"?"عدد باید بین ۱ تا ۵۰ باشد.":"Enter 1 to 50.";return}
+ if(n===secret){
   let prize=Math.max(10,50-(tries-1)*5);
   coins+=prize;addXP(20);finishGame();
-  $("gameFeedback").textContent=lang==="fa"?"درست است! "+tries+" تلاش؛ جایزه "+prize+" سکه.":"Correct! "+tries+" tries; "+prize+" coins earned.";
-  $("guessInput").disabled=true;
- }else{
-  $("gameFeedback").textContent=val<secret?(lang==="fa"?"عدد بزرگ‌تر است.":"Go higher."):(lang==="fa"?"عدد کوچک‌تر است.":"Go lower.");
- }
+  feedback.textContent=lang==="fa"?"آفرین! "+prize+" سکه برنده شدی.":"Correct! You won "+prize+" coins.";
+  guess.disabled=true;
+ }else feedback.textContent=n<secret?(lang==="fa"?"عدد بزرگ‌تر است.":"Go higher."):(lang==="fa"?"عدد کوچک‌تر است.":"Go lower.");
 }
-function showMemory(){
- const icons=["🍎","🚀","🐱","🌙","⚽","🎲","🍀","🎧"];
- memCards=[...icons,...icons].sort(()=>Math.random()-.5);
- memOpen=[];memMatched=0;memLocked=false;
- $("modalTitle").textContent=lang==="fa"?"🧠 حافظه طلایی":"🧠 Golden Memory";
- $("gameArea").innerHTML=`<p>${lang==="fa"?"جفت تصاویر مشابه را پیدا کن.":"Find all matching pairs."}</p><div class="memory-grid" id="memoryGrid"></div><div class="feedback" id="gameFeedback"></div>`;
- memCards.forEach((v,i)=>{
-  const b=document.createElement("button");
-  b.className="memory-card";b.textContent="?";
-  b.onclick=()=>flipCard(i,b);
-  $("memoryGrid").appendChild(b);
+let cards=[],opened=[],matched=0,locked=false;
+function memoryGame(){
+ cards=["🚀","🌙","👾","🪐","☄️","🌟","🛸","💎"];
+ cards=[...cards,...cards].sort(()=>Math.random()-.5);
+ opened=[];matched=0;locked=false;
+ document.getElementById("modalTitle").textContent="🧠 GALAXY MEMORY";
+ document.getElementById("gameArea").innerHTML=`
+ <p>${lang==="fa"?"جفت نمادهای مشابه را پیدا کن.":"Find matching pairs."}</p>
+ <div class="memory-grid" id="grid"></div><div class="feedback" id="feedback"></div>`;
+ cards.forEach((v,i)=>{
+  let b=document.createElement("button");b.className="memory-card";b.textContent="?";
+  b.onclick=()=>flip(i,b);grid.appendChild(b);
  });
 }
-function flipCard(i,b){
- if(memLocked||b.classList.contains("open")||b.disabled)return;
- b.textContent=memCards[i];b.classList.add("open");memOpen.push({i,b});
- if(memOpen.length===2){
-  memLocked=true;
-  const [a,c]=memOpen;
-  if(memCards[a.i]===memCards[c.i]){
-   a.b.disabled=true;c.b.disabled=true;memMatched++;
-   memOpen=[];memLocked=false;
-   if(memMatched===8){
+function flip(i,b){
+ if(locked||b.disabled||b.classList.contains("open"))return;
+ b.textContent=cards[i];b.classList.add("open");opened.push({i,b});
+ if(opened.length===2){
+  locked=true;let [a,c]=opened;
+  if(cards[a.i]===cards[c.i]){
+   a.b.disabled=true;c.b.disabled=true;matched++;opened=[];locked=false;
+   if(matched===8){
     coins+=70;addXP(25);finishGame();
-    $("gameFeedback").textContent=lang==="fa"?"عالی بود! ۷۰ سکه جایزه گرفتی.":"Excellent! You earned 70 coins.";
+    feedback.textContent=lang==="fa"?"عالی! ۷۰ سکه گرفتی.":"Excellent! 70 coins earned.";
    }
-  }else{
-   setTimeout(()=>{
-    a.b.textContent="?";c.b.textContent="?";
-    a.b.classList.remove("open");c.b.classList.remove("open");
-    memOpen=[];memLocked=false;
-   },750);
-  }
+  }else setTimeout(()=>{
+   a.b.textContent="?";c.b.textContent="?";
+   a.b.classList.remove("open");c.b.classList.remove("open");
+   opened=[];locked=false;
+  },700);
  }
 }
 update();
-if(lang==="en")toggleLanguage();
+if(lang==="en"){
+ document.getElementById("langButton").textContent="FA";
+ document.documentElement.lang="en";
+ document.documentElement.dir="ltr";
+ document.querySelectorAll("[data-fa]").forEach(el=>el.innerHTML=el.dataset.en);
+}
 </script>
 </body>
 </html>
