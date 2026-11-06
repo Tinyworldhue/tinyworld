@@ -1,160 +1,294 @@
- 
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TinyWorld Spin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101322">
+<title>TinyWorld | دنیای بازی‌ها</title>
+
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;min-height:100vh;padding:18px;
- font-family:Tahoma,Arial,sans-serif;color:white;text-align:center;
- background:linear-gradient(160deg,#263b96,#7654b5,#ffad79)
+ margin:0;background:#101322;color:#fff;
+ font-family:Tahoma,Arial,sans-serif;
 }
-.app{max-width:430px;margin:auto}
 header{
- background:#ffffff25;padding:15px;border-radius:18px;
- display:flex;justify-content:space-between;align-items:center
+ display:flex;justify-content:space-between;align-items:center;
+ padding:18px 7%;border-bottom:1px solid #292d40;
 }
-h2{margin:8px 0}
-.wallet{background:#17376f;padding:10px;border-radius:12px}
-.wallet strong{color:#ffe16a;font-size:21px}
-.machine{
- margin-top:25px;padding:15px;background:#8fc2fa;
- border:5px solid #d8ecff;border-radius:28px;
- box-shadow:0 10px 0 #24518e
+.logo{font-size:25px;font-weight:bold;color:#8b7cff}
+.logo span{color:#fff}
+button{cursor:pointer;font-family:inherit}
+.lang{
+ background:#242943;color:white;border:1px solid #454b68;
+ padding:10px 15px;border-radius:10px;
 }
-.reels{
+.hero{
+ text-align:center;padding:65px 20px 45px;
+ background:radial-gradient(ellipse at top,#29235a,#101322 70%);
+}
+.hero h1{font-size:42px;margin:10px 0}
+.hero p{color:#b9bfd4;line-height:2}
+.primary{
+ background:#7965ff;color:white;border:0;
+ padding:14px 25px;border-radius:12px;font-size:16px;
+ margin-top:15px;
+}
+.container{max-width:1050px;margin:auto;padding:25px 18px}
+.section-title{font-size:23px;margin:25px 0}
+.stats{
  display:grid;grid-template-columns:repeat(3,1fr);
- gap:8px;background:#244e96;padding:10px;border-radius:16px
+ gap:12px;margin:20px 0;
 }
-.reel{
- height:120px;background:#f2f6ff;border-radius:12px;
- display:grid;place-items:center;font-size:52px
+.stat,.game,.panel{
+ background:#1b2035;border:1px solid #303750;
+ border-radius:16px;padding:20px;
 }
-.result{color:#17376f;font-weight:bold;min-height:45px;padding:14px 2px}
-.bet{background:#234b8e;padding:12px;border-radius:12px}
-button{
- border:0;border-radius:13px;padding:14px;
- font-size:18px;font-weight:bold;cursor:pointer
+.stat{text-align:center}
+.stat strong{display:block;font-size:23px;color:#a99aff;margin-bottom:8px}
+.games{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:15px;
 }
-.spin{width:100%;margin-top:18px;background:#48a2f4;color:white}
-.daily{width:100%;margin-top:18px;background:#ffd34e;color:#513b00}
-button:disabled{opacity:.5}
-table{width:100%;margin-top:20px;background:#ffffff25;border-radius:12px;padding:10px}
-td{padding:7px}
-.note{font-size:11px;line-height:2;margin-top:18px}
+.game{transition:.2s}
+.game:hover{border-color:#8875ff;transform:translateY(-3px)}
+.game .emoji{font-size:35px}
+.game h3{margin:12px 0 7px}
+.game p{color:#aeb5ca;font-size:14px;line-height:1.8}
+.game button{
+ background:#34305c;color:white;border:0;
+ padding:10px 15px;border-radius:9px;margin-top:8px;
+}
+.panel{margin-top:25px;text-align:center}
+.slots{display:flex;justify-content:center;gap:12px;margin:20px}
+.slot{
+ background:#f5f3ff;color:#17152a;
+ width:75px;height:75px;border-radius:13px;
+ display:grid;place-items:center;font-size:35px;
+}
+.spin-btn{
+ background:#7965ff;color:white;border:0;
+ padding:13px 30px;border-radius:10px;font-size:16px;
+}
+.message{min-height:28px;color:#c7bdff;margin:15px}
+.bonus{
+ background:#252449;border:1px solid #514a9c;
+ color:white;padding:12px 18px;border-radius:10px;
+}
+footer{
+ text-align:center;padding:30px;color:#777f98;
+ border-top:1px solid #292d40;margin-top:40px;font-size:13px;
+}
+@media(max-width:600px){
+ .hero h1{font-size:30px}
+ .stats{grid-template-columns:1fr}
+ .games{grid-template-columns:1fr}
+ header{padding:15px}
+}
 </style>
 </head>
+
 <body>
-<div class="app">
 
 <header>
- <div><b>🌍 TinyWorld</b><br><small>SPIN GAME</small></div>
- <div class="wallet">🪙 موجودی<br><strong id="coins">۱۰۰۰</strong></div>
+ <div class="logo">Tiny<span>World</span> 🌍</div>
+ <button class="lang" onclick="changeLanguage()" id="langBtn">English</button>
 </header>
 
-<h2>🎰 چرخ شانس</h2>
-<p>سه نماد یکسان پیدا کن و جایزه بگیر!</p>
+<section class="hero">
+ <h1 id="heroTitle">به دنیای TinyWorld خوش آمدی!</h1>
+ <p id="heroText">بازی کن، امتیاز جمع کن، رکورد بساز و با دیگران رقابت کن.</p>
+ <button class="primary" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})" id="heroBtn">شروع بازی</button>
+</section>
 
-<div class="machine">
- <div class="reels">
-  <div class="reel" id="r0">🎁</div>
-  <div class="reel" id="r1">🍔</div>
-  <div class="reel" id="r2">⚡</div>
+<main class="container">
+
+ <div class="stats">
+  <div class="stat">
+   <strong id="coinCount">1000</strong>
+   <span id="coinLabel">سکه‌های من 🪙</span>
+  </div>
+  <div class="stat">
+   <strong>4</strong>
+   <span id="gameLabel">بازی در برنامه 🎮</span>
+  </div>
+  <div class="stat">
+   <strong>∞</strong>
+   <span id="funLabel">سرگرمی نامحدود</span>
+  </div>
  </div>
 
- <div class="result" id="result">آماده‌ای؟ شروع کن!</div>
+ <h2 class="section-title" id="gamesTitle">🎮 مرکز بازی‌ها</h2>
 
- <div class="bet">هزینه هر چرخش: ۸۰ سکه</div>
- <button class="spin" id="spin">🎲 چرخش</button>
-</div>
+ <div class="games" id="games">
 
-<table>
- <tr><td>💎 💎 💎</td><td>۸۰۰ سکه</td></tr>
- <tr><td>🎁 🎁 🎁</td><td>۵۰۰ سکه</td></tr>
- <tr><td>🍔 🍔 🍔</td><td>۳۰۰ سکه</td></tr>
- <tr><td>⚡ ⚡ ⚡</td><td>۲۴۰ سکه</td></tr>
- <tr><td>دو نماد یکسان</td><td>۱۲۰ سکه</td></tr>
-</table>
+  <div class="game">
+   <div class="emoji">🎰</div>
+   <h3>TinyWorld Spin</h3>
+   <p id="spinDesc">بخت خود را با سکه‌های مجازی امتحان کن.</p>
+   <button onclick="document.getElementById('spinGame').scrollIntoView({behavior:'smooth'})" id="playSpin">بازی کن</button>
+  </div>
 
-<button class="daily" id="daily">🎁 جایزه روزانه: ۲۰۰ سکه</button>
+  <div class="game">
+   <div class="emoji">🧩</div>
+   <h3 id="puzzleTitle">بازی معما</h3>
+   <p id="puzzleDesc">ذهن خود را با پرسش‌های هوشمند آزمایش کن.</p>
+   <button onclick="alert(language==='fa'?'این بازی در مرحله بعد ساخته می‌شود.':'This game is coming soon.')" id="soon1">به‌زودی</button>
+  </div>
 
-<p class="note">
-این بازی فقط سرگرمی است. سکه‌ها مجازی‌اند و ارزش پولی ندارند.
-<br>TinyWorld Spin – نسخه آزمایشی
-</p>
-</div>
+  <div class="game">
+   <div class="emoji">🔢</div>
+   <h3 id="numberTitle">حدس عدد</h3>
+   <p id="numberDesc">عدد پنهان را پیدا کن و امتیاز بگیر.</p>
+   <button onclick="alert(language==='fa'?'این بازی در مرحله بعد ساخته می‌شود.':'This game is coming soon.')" id="soon2">به‌زودی</button>
+  </div>
+
+  <div class="game">
+   <div class="emoji">🧠</div>
+   <h3 id="memoryTitle">بازی حافظه</h3>
+   <p id="memoryDesc">حافظه و تمرکز خود را به چالش بکش.</p>
+   <button onclick="alert(language==='fa'?'این بازی در مرحله بعد ساخته می‌شود.':'This game is coming soon.')" id="soon3">به‌زودی</button>
+  </div>
+
+ </div>
+
+ <section class="panel" id="spinGame">
+  <h2 id="spinHeading">🎰 TinyWorld Spin</h2>
+  <p id="spinInfo">هر بار چرخش ۸۰ سکه هزینه دارد.</p>
+
+  <div class="slots">
+   <div class="slot" id="s1">🍒</div>
+   <div class="slot" id="s2">⭐</div>
+   <div class="slot" id="s3">💎</div>
+  </div>
+
+  <button class="spin-btn" onclick="spin()" id="spinButton">چرخاندن — ۸۰ سکه</button>
+  <div class="message" id="result"></div>
+  <button class="bonus" onclick="dailyBonus()" id="bonusButton">🎁 دریافت جایزه روزانه</button>
+ </section>
+
+</main>
+
+<footer>
+ <p>© 2026 TinyWorld — <span id="footerText">دنیای بازی و سرگرمی</span></p>
+ <p id="disclaimer">تمام سکه‌ها مجازی هستند و ارزش پول واقعی ندارند.</p>
+</footer>
 
 <script>
-const fa=n=>new Intl.NumberFormat('fa-IR').format(n);
-const symbols=['💎','🎁','🍔','⚡','🍿','🧸'];
-const prizes={'💎':800,'🎁':500,'🍔':300,'⚡':240};
+let language = "fa";
+let coins = Number(localStorage.getItem("tw_coins"));
 
-let coins=1000,plays=0;
-try{
- const old=JSON.parse(localStorage.getItem('tiny-spin'));
- if(old){coins=old.coins;plays=old.plays||0}
-}catch(e){}
+if (!Number.isFinite(coins) || coins < 0) coins = 1000;
 
-function update(){
- document.getElementById('coins').textContent=fa(coins);
- localStorage.setItem('tiny-spin',JSON.stringify({coins,plays}));
+function saveCoins(){
+ localStorage.setItem("tw_coins",coins);
+ document.getElementById("coinCount").textContent=coins;
+}
+saveCoins();
+
+const words = {
+ fa:{
+  heroTitle:"به دنیای TinyWorld خوش آمدی!",
+  heroText:"بازی کن، امتیاز جمع کن، رکورد بساز و با دیگران رقابت کن.",
+  heroBtn:"شروع بازی",coinLabel:"سکه‌های من 🪙",
+  gameLabel:"بازی در برنامه 🎮",funLabel:"سرگرمی نامحدود",
+  gamesTitle:"🎮 مرکز بازی‌ها",spinDesc:"بخت خود را با سکه‌های مجازی امتحان کن.",
+  playSpin:"بازی کن",puzzleTitle:"بازی معما",
+  puzzleDesc:"ذهن خود را با پرسش‌های هوشمند آزمایش کن.",
+  numberTitle:"حدس عدد",numberDesc:"عدد پنهان را پیدا کن و امتیاز بگیر.",
+  memoryTitle:"بازی حافظه",memoryDesc:"حافظه و تمرکز خود را به چالش بکش.",
+  soon:"به‌زودی",spinHeading:"🎰 TinyWorld Spin",
+  spinInfo:"هر بار چرخش ۸۰ سکه هزینه دارد.",
+  spinButton:"چرخاندن — ۸۰ سکه",
+  bonusButton:"🎁 دریافت جایزه روزانه",
+  footerText:"دنیای بازی و سرگرمی",
+  disclaimer:"تمام سکه‌ها مجازی هستند و ارزش پول واقعی ندارند.",
+  win:"تبریک! تو {n} سکه برنده شدی!",
+  lose:"این بار برنده نشدی. دوباره تلاش کن!",
+  noCoins:"سکه کافی نداری!",
+  bonusDone:"جایزه امروز را قبلاً دریافت کرده‌ای.",
+  bonusWin:"۲۰۰ سکه جایزه روزانه دریافت کردی!"
+ },
+ en:{
+  heroTitle:"Welcome to TinyWorld!",
+  heroText:"Play games, collect points, set records and compete.",
+  heroBtn:"Start Playing",coinLabel:"My Coins 🪙",
+  gameLabel:"Games planned 🎮",funLabel:"Endless Fun",
+  gamesTitle:"🎮 Game Center",spinDesc:"Try your luck with virtual coins.",
+  playSpin:"Play Now",puzzleTitle:"Puzzle Game",
+  puzzleDesc:"Test your mind with clever questions.",
+  numberTitle:"Guess the Number",numberDesc:"Find the hidden number and score points.",
+  memoryTitle:"Memory Game",memoryDesc:"Challenge your memory and focus.",
+  soon:"Coming Soon",spinHeading:"🎰 TinyWorld Spin",
+  spinInfo:"Each spin costs 80 coins.",
+  spinButton:"SPIN — 80 COINS",
+  bonusButton:"🎁 Claim Daily Bonus",
+  footerText:"The world of games and fun",
+  disclaimer:"All coins are virtual and have no real-world cash value.",
+  win:"Congratulations! You won {n} coins!",
+  lose:"No win this time. Try again!",
+  noCoins:"Not enough coins!",
+  bonusDone:"You have already claimed today's bonus.",
+  bonusWin:"You received 200 daily bonus coins!"
+ }
+};
+
+function changeLanguage(){
+ language = language==="fa"?"en":"fa";
+ const w=words[language];
+ document.documentElement.lang=language;
+ document.documentElement.dir=language==="fa"?"rtl":"ltr";
+ document.getElementById("langBtn").textContent=language==="fa"?"English":"فارسی";
+ Object.keys(w).forEach(key=>{
+  const el=document.getElementById(key);
+  if(el) el.textContent=w[key];
+ });
+ ["soon1","soon2","soon3"].forEach(id=>{
+  document.getElementById(id).textContent=w.soon;
+ });
+ document.getElementById("result").textContent="";
 }
 
-const spin=document.getElementById('spin');
-spin.onclick=()=>{
+const symbols=["🍒","🍋","⭐","💎","🍇","7️⃣"];
+
+function spin(){
  if(coins<80){
-  document.getElementById('result').textContent='سکه کافی نداری! جایزه روزانه را بگیر.';
+  document.getElementById("result").textContent=words[language].noCoins;
   return;
  }
- spin.disabled=true;
- coins-=80;plays++;update();
- document.getElementById('result').textContent='چرخ‌ها در حال چرخیدن‌اند...';
+ coins-=80;
+ const a=symbols[Math.floor(Math.random()*symbols.length)];
+ const b=symbols[Math.floor(Math.random()*symbols.length)];
+ const c=symbols[Math.floor(Math.random()*symbols.length)];
 
- let count=0;
- const timer=setInterval(()=>{
-  for(let i=0;i<3;i++){
-   document.getElementById('r'+i).textContent=
-    symbols[Math.floor(Math.random()*symbols.length)];
-  }
-  count++;
-  if(count>=12){
-   clearInterval(timer);
-   const result=[0,1,2].map(()=>symbols[Math.floor(Math.random()*symbols.length)]);
-   result.forEach((v,i)=>document.getElementById('r'+i).textContent=v);
+ document.getElementById("s1").textContent=a;
+ document.getElementById("s2").textContent=b;
+ document.getElementById("s3").textContent=c;
 
-   let prize=0,msg='این بار برنده نشدی! دوباره تلاش کن.';
-   if(result[0]===result[1]&&result[1]===result[2]){
-    prize=prizes[result[0]]||180;
-    msg='🎉 جایزه بزرگ: '+fa(prize)+' سکه!';
-   }else if(result[0]===result[1]||result[1]===result[2]||result[0]===result[2]){
-    prize=120;
-    msg='✨ دو نماد یکسان! ۱۲۰ سکه جایزه گرفتی.';
-   }
-   coins+=prize;update();
-   document.getElementById('result').textContent=msg;
-   spin.disabled=false;
-  }
- },100);
-};
+ let prize=0;
+ if(a===b && b===c) prize=400;
+ else if(a===b || b===c || a===c) prize=120;
 
-document.getElementById('daily').onclick=()=>{
- const today=new Date().toDateString();
- if(localStorage.getItem('daily-date')===today)return;
- coins+=200;
- localStorage.setItem('daily-date',today);
- update();
- document.getElementById('daily').textContent='جایزه امروز دریافت شد ✓';
- document.getElementById('result').textContent='🎁 ۲۰۰ سکه دریافت کردی!';
-};
+ coins+=prize;
+ saveCoins();
 
-if(localStorage.getItem('daily-date')===new Date().toDateString()){
- document.getElementById('daily').textContent='جایزه امروز دریافت شد ✓';
- document.getElementById('daily').disabled=true;
+ document.getElementById("result").textContent=
+ prize>0?words[language].win.replace("{n}",prize):words[language].lose;
 }
-update();
+
+function dailyBonus(){
+ const today=new Date().toISOString().slice(0,10);
+ const last=localStorage.getItem("tw_daily_bonus");
+
+ if(last===today){
+  document.getElementById("result").textContent=words[language].bonusDone;
+  return;
+ }
+ coins+=200;
+ localStorage.setItem("tw_daily_bonus",today);
+ saveCoins();
+ document.getElementById("result").textContent=words[language].bonusWin;
+}
 </script>
 </body>
 </html>
