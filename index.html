@@ -1,59 +1,160 @@
+ 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TinyWorld</title>
+<title>TinyWorld Spin</title>
 <style>
-body {
-  margin: 0;
-  font-family: Tahoma, sans-serif;
-  background: #10152d;
-  color: white;
-  text-align: center;
-  padding: 25px 15px;
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;padding:18px;
+ font-family:Tahoma,Arial,sans-serif;color:white;text-align:center;
+ background:linear-gradient(160deg,#263b96,#7654b5,#ffad79)
 }
-header {font-size: 28px;font-weight: bold;color: #a78bfa}
-main {
-  max-width: 500px;
-  margin: 35px auto;
-  padding: 25px;
-  background: #202b4c;
-  border-radius: 20px;
+.app{max-width:430px;margin:auto}
+header{
+ background:#ffffff25;padding:15px;border-radius:18px;
+ display:flex;justify-content:space-between;align-items:center
 }
-h1 {font-size: 27px}
-p {line-height: 2;color: #d1d5db}
-button {
-  display: block;
-  width: 100%;
-  margin: 12px 0;
-  padding: 15px;
-  border: 1px solid #7565c9;
-  border-radius: 12px;
-  background: #303d65;
-  color: white;
-  font-size: 17px;
+h2{margin:8px 0}
+.wallet{background:#17376f;padding:10px;border-radius:12px}
+.wallet strong{color:#ffe16a;font-size:21px}
+.machine{
+ margin-top:25px;padding:15px;background:#8fc2fa;
+ border:5px solid #d8ecff;border-radius:28px;
+ box-shadow:0 10px 0 #24518e
 }
-button:active {background: #6046c7}
-#result {color: #52e0b0;font-weight: bold}
+.reels{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:8px;background:#244e96;padding:10px;border-radius:16px
+}
+.reel{
+ height:120px;background:#f2f6ff;border-radius:12px;
+ display:grid;place-items:center;font-size:52px
+}
+.result{color:#17376f;font-weight:bold;min-height:45px;padding:14px 2px}
+.bet{background:#234b8e;padding:12px;border-radius:12px}
+button{
+ border:0;border-radius:13px;padding:14px;
+ font-size:18px;font-weight:bold;cursor:pointer
+}
+.spin{width:100%;margin-top:18px;background:#48a2f4;color:white}
+.daily{width:100%;margin-top:18px;background:#ffd34e;color:#513b00}
+button:disabled{opacity:.5}
+table{width:100%;margin-top:20px;background:#ffffff25;border-radius:12px;padding:10px}
+td{padding:7px}
+.note{font-size:11px;line-height:2;margin-top:18px}
 </style>
 </head>
 <body>
-<header>🌍 TinyWorld</header>
-<main>
-<h1>به دنیای معما خوش آمدی!</h1>
-<p>چیزی که هرچه بیشتر از آن برداری، بزرگ‌تر می‌شود چیست؟</p>
-<button onclick="check(0)">۱. سوراخ</button>
-<button onclick="check(1)">۲. سنگ</button>
-<button onclick="check(2)">۳. آب</button>
-<button onclick="check(3)">۴. درخت</button>
-<p id="result"></p>
-</main>
+<div class="app">
+
+<header>
+ <div><b>🌍 TinyWorld</b><br><small>SPIN GAME</small></div>
+ <div class="wallet">🪙 موجودی<br><strong id="coins">۱۰۰۰</strong></div>
+</header>
+
+<h2>🎰 چرخ شانس</h2>
+<p>سه نماد یکسان پیدا کن و جایزه بگیر!</p>
+
+<div class="machine">
+ <div class="reels">
+  <div class="reel" id="r0">🎁</div>
+  <div class="reel" id="r1">🍔</div>
+  <div class="reel" id="r2">⚡</div>
+ </div>
+
+ <div class="result" id="result">آماده‌ای؟ شروع کن!</div>
+
+ <div class="bet">هزینه هر چرخش: ۸۰ سکه</div>
+ <button class="spin" id="spin">🎲 چرخش</button>
+</div>
+
+<table>
+ <tr><td>💎 💎 💎</td><td>۸۰۰ سکه</td></tr>
+ <tr><td>🎁 🎁 🎁</td><td>۵۰۰ سکه</td></tr>
+ <tr><td>🍔 🍔 🍔</td><td>۳۰۰ سکه</td></tr>
+ <tr><td>⚡ ⚡ ⚡</td><td>۲۴۰ سکه</td></tr>
+ <tr><td>دو نماد یکسان</td><td>۱۲۰ سکه</td></tr>
+</table>
+
+<button class="daily" id="daily">🎁 جایزه روزانه: ۲۰۰ سکه</button>
+
+<p class="note">
+این بازی فقط سرگرمی است. سکه‌ها مجازی‌اند و ارزش پولی ندارند.
+<br>TinyWorld Spin – نسخه آزمایشی
+</p>
+</div>
+
 <script>
-function check(answer) {
- document.getElementById("result").innerText =
- answer === 0 ? "آفرین! پاسخ درست است 🎉" : "اشتباه بود! دوباره فکر کن.";
+const fa=n=>new Intl.NumberFormat('fa-IR').format(n);
+const symbols=['💎','🎁','🍔','⚡','🍿','🧸'];
+const prizes={'💎':800,'🎁':500,'🍔':300,'⚡':240};
+
+let coins=1000,plays=0;
+try{
+ const old=JSON.parse(localStorage.getItem('tiny-spin'));
+ if(old){coins=old.coins;plays=old.plays||0}
+}catch(e){}
+
+function update(){
+ document.getElementById('coins').textContent=fa(coins);
+ localStorage.setItem('tiny-spin',JSON.stringify({coins,plays}));
 }
+
+const spin=document.getElementById('spin');
+spin.onclick=()=>{
+ if(coins<80){
+  document.getElementById('result').textContent='سکه کافی نداری! جایزه روزانه را بگیر.';
+  return;
+ }
+ spin.disabled=true;
+ coins-=80;plays++;update();
+ document.getElementById('result').textContent='چرخ‌ها در حال چرخیدن‌اند...';
+
+ let count=0;
+ const timer=setInterval(()=>{
+  for(let i=0;i<3;i++){
+   document.getElementById('r'+i).textContent=
+    symbols[Math.floor(Math.random()*symbols.length)];
+  }
+  count++;
+  if(count>=12){
+   clearInterval(timer);
+   const result=[0,1,2].map(()=>symbols[Math.floor(Math.random()*symbols.length)]);
+   result.forEach((v,i)=>document.getElementById('r'+i).textContent=v);
+
+   let prize=0,msg='این بار برنده نشدی! دوباره تلاش کن.';
+   if(result[0]===result[1]&&result[1]===result[2]){
+    prize=prizes[result[0]]||180;
+    msg='🎉 جایزه بزرگ: '+fa(prize)+' سکه!';
+   }else if(result[0]===result[1]||result[1]===result[2]||result[0]===result[2]){
+    prize=120;
+    msg='✨ دو نماد یکسان! ۱۲۰ سکه جایزه گرفتی.';
+   }
+   coins+=prize;update();
+   document.getElementById('result').textContent=msg;
+   spin.disabled=false;
+  }
+ },100);
+};
+
+document.getElementById('daily').onclick=()=>{
+ const today=new Date().toDateString();
+ if(localStorage.getItem('daily-date')===today)return;
+ coins+=200;
+ localStorage.setItem('daily-date',today);
+ update();
+ document.getElementById('daily').textContent='جایزه امروز دریافت شد ✓';
+ document.getElementById('result').textContent='🎁 ۲۰۰ سکه دریافت کردی!';
+};
+
+if(localStorage.getItem('daily-date')===new Date().toDateString()){
+ document.getElementById('daily').textContent='جایزه امروز دریافت شد ✓';
+ document.getElementById('daily').disabled=true;
+}
+update();
 </script>
 </body>
 </html>
