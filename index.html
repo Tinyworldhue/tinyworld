@@ -1,841 +1,376 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d18">
-<title>NEXORA | دنیای دیجیتال آینده</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<title>MENZONE | استایل مردانه</title>
+<meta name="description" content="MENZONE فروشگاه مدرن لباس مردانه">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  --bg: #080d18;
-  --panel: #101a2b;
-  --panel2: #142238;
-  --line: rgba(255,255,255,.09);
-  --text: #edf4ff;
-  --muted: #91a2bc;
-  --cyan: #45d9e8;
-  --purple: #9c7cff;
-  --green: #54e0a0;
-  --gold: #ffc86b;
-  --red: #ff7185;
+  --bg:#101010;
+  --panel:#191919;
+  --text:#f7f3eb;
+  --muted:#aaa49a;
+  --gold:#d7ad70;
+  --line:#303030;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Vazirmatn',sans-serif;
+}
+button,input{font:inherit}
+a{color:inherit;text-decoration:none}
+header{
+  height:75px;
+  padding:0 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#101010ee;
+  backdrop-filter:blur(15px);
+}
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.logo span{color:var(--gold)}
+nav{display:flex;gap:28px;color:#ddd;font-size:13px}
+nav a:hover{color:var(--gold)}
+.cart{
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  padding:9px 17px;
+  border-radius:4px;
+  cursor:pointer;
+}
+.hero{
+  min-height:570px;
+  padding:80px 8%;
+  display:flex;
+  align-items:center;
   background:
-    radial-gradient(ellipse at 80% 0%, rgba(70,90,180,.16), transparent 40%),
-    radial-gradient(ellipse at 0% 60%, rgba(30,180,190,.08), transparent 35%),
-    var(--bg);
-  color: var(--text);
-  font-family: "Vazirmatn", Tahoma, sans-serif;
-  min-height: 100vh;
+  linear-gradient(90deg,#101010 10%,#101010b0 55%,#10101055),
+  url('https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1800') center/cover;
 }
-button, input { font: inherit; }
-button { cursor: pointer; }
-.app { display: flex; min-height: 100vh; }
-.sidebar {
-  width: 245px;
-  background: rgba(10,17,31,.94);
-  border-left: 1px solid var(--line);
-  padding: 25px 16px;
-  position: fixed;
-  right: 0; top: 0; bottom: 0;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
+.hero-content{max-width:550px}
+.eyebrow{
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:3px;
+  margin-bottom:20px;
 }
-.brand {
-  display: flex; align-items: center; gap: 11px;
-  padding: 5px 9px 27px;
+.hero h1{
+  font-size:clamp(40px,7vw,76px);
+  line-height:1.4;
+  font-weight:900;
 }
-.brand-icon {
-  width: 43px; height: 43px; border-radius: 14px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg,var(--cyan),var(--purple));
-  color: #07111d; font-size: 22px; font-weight: 900;
-  box-shadow: 0 0 25px rgba(69,217,232,.2);
+.hero h1 span{color:var(--gold)}
+.hero p{
+  color:#ccc;
+  line-height:2.2;
+  margin:20px 0 30px;
 }
-.brand-name { font-size: 21px; font-weight: 800; letter-spacing: 1px; }
-.brand-sub { font-size: 10px; color: var(--muted); }
-.nav-label {
-  color: #657895; font-size: 10px; font-weight: 700;
-  padding: 12px 12px 8px;
+.btn{
+  display:inline-block;
+  background:var(--gold);
+  color:#17120c;
+  padding:13px 30px;
+  border:0;
+  font-weight:800;
+  cursor:pointer;
+  border-radius:3px;
 }
-.nav-btn {
-  display: flex; align-items: center; gap: 12px;
-  width: 100%; padding: 12px 13px; margin: 3px 0;
-  border: 1px solid transparent; border-radius: 12px;
-  color: var(--muted); background: transparent;
-  text-align: right; transition: .2s;
+.section{padding:75px 7%}
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-bottom:30px;
 }
-.nav-btn:hover, .nav-btn.active {
-  color: var(--text);
-  background: linear-gradient(90deg,rgba(69,217,232,.12),rgba(156,124,255,.10));
-  border-color: rgba(69,217,232,.18);
+.section-head h2{font-size:27px}
+.section-head p{font-size:12px;color:var(--muted)}
+.categories{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
-.nav-icon { width: 22px; text-align: center; font-size: 17px; }
-.sidebar-bottom { margin-top: auto; }
-.mini-profile {
-  background: var(--panel); border: 1px solid var(--line);
-  padding: 12px; border-radius: 14px;
-  display: flex; align-items: center; gap: 10px;
+.category{
+  height:180px;
+  background:var(--panel);
+  display:flex;
+  align-items:end;
+  padding:20px;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  overflow:hidden;
 }
-.avatar {
-  width: 37px; height: 37px; border-radius: 12px;
-  background: linear-gradient(135deg,#315d83,#8869c9);
-  display: grid; place-items: center; font-size: 18px;
+.category:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent,#000b);
 }
-.main { margin-right: 245px; width: calc(100% - 245px); padding: 25px 30px 50px; }
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 15px; margin-bottom: 28px;
+.category h3{position:relative;font-size:19px}
+.category:hover{outline:1px solid var(--gold)}
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
 }
-.welcome h1 { margin: 0 0 5px; font-size: 24px; }
-.welcome p { margin: 0; color: var(--muted); font-size: 13px; }
-.top-actions { display: flex; align-items: center; gap: 10px; }
-.currency {
-  border: 1px solid rgba(255,200,107,.25);
-  background: rgba(255,200,107,.08);
-  color: var(--gold); padding: 9px 14px;
-  border-radius: 12px; font-size: 13px;
+.filter{
+  padding:8px 18px;
+  border:1px solid var(--line);
+  color:#ccc;
+  background:transparent;
+  cursor:pointer;
+  border-radius:3px;
 }
-.page { display: none; animation: appear .25s ease; }
-.page.active { display: block; }
-@keyframes appear { from {opacity:0;transform:translateY(6px)} to {opacity:1;transform:translateY(0)} }
-.hero {
-  border: 1px solid rgba(69,217,232,.19);
-  border-radius: 22px; padding: 28px;
-  background:
-    radial-gradient(circle at 85% 20%,rgba(69,217,232,.17),transparent 35%),
-    linear-gradient(120deg,#14253c,#171c36);
-  position: relative; overflow: hidden;
-  margin-bottom: 22px;
+.filter.active,.filter:hover{
+  background:var(--gold);
+  color:#17120c;
+  border-color:var(--gold);
 }
-.hero:after {
-  content: "N"; position: absolute; left: 35px; top: -55px;
-  font-size: 230px; font-weight: 900; color: rgba(255,255,255,.025);
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
 }
-.hero-tag {
-  color: var(--cyan); font-size: 11px; font-weight: 700;
-  letter-spacing: 1px;
+.product{
+  background:var(--panel);
+  overflow:hidden;
 }
-.hero h2 { font-size: 27px; margin: 10px 0; max-width: 600px; }
-.hero p { color: #b0bfd3; max-width: 570px; line-height: 2; font-size: 13px; }
-.primary-btn {
-  background: linear-gradient(100deg,var(--cyan),#8ba8ff);
-  color: #07111d; border: 0; border-radius: 11px;
-  padding: 11px 19px; font-weight: 800; margin-top: 8px;
+.product img{
+  width:100%;
+  height:270px;
+  object-fit:cover;
+  display:block;
+  background:#252525;
 }
-.primary-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
-.section-title {
-  display: flex; align-items: center; justify-content: space-between;
-  margin: 26px 0 14px;
+.product-info{padding:15px}
+.product-info h3{font-size:14px;margin-bottom:7px}
+.product-info p{color:var(--gold);font-weight:800;font-size:14px}
+.product-info button{
+  width:100%;
+  margin-top:12px;
+  padding:10px;
+  background:transparent;
+  border:1px solid #555;
+  color:white;
+  cursor:pointer;
 }
-.section-title h3 { margin: 0; font-size: 16px; }
-.section-title span { color: var(--muted); font-size: 11px; }
-.stats {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 13px;
+.product-info button:hover{
+  background:var(--gold);
+  color:#111;
+  border-color:var(--gold);
 }
-.stat-card, .card {
-  background: linear-gradient(145deg,rgba(20,34,56,.94),rgba(14,24,40,.96));
-  border: 1px solid var(--line); border-radius: 16px; padding: 17px;
+.promo{
+  margin:15px 7% 75px;
+  padding:55px 30px;
+  background:#242018;
+  text-align:center;
 }
-.stat-top { display:flex; justify-content:space-between; color:var(--muted); font-size:12px; }
-.stat-icon { font-size:20px; }
-.stat-value { font-size:25px; font-weight:800; margin:10px 0 2px; }
-.stat-note { font-size:10px; color:var(--green); }
-.grid-2 { display:grid; grid-template-columns:1.2fr .8fr; gap:15px; }
-.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-.progress {
-  height: 7px; border-radius: 20px; background: #26354b;
-  overflow: hidden; margin: 12px 0 7px;
+.promo h2{font-size:28px;margin-bottom:10px}
+.promo p{color:var(--muted);margin-bottom:20px}
+footer{
+  padding:40px 7%;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  text-align:center;
+  font-size:12px;
+  line-height:2.5;
 }
-.progress > div {
-  height:100%; border-radius:20px;
-  background:linear-gradient(90deg,var(--cyan),var(--purple));
+.search{
+  width:100%;
+  max-width:350px;
+  padding:12px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:white;
+  outline:none;
+  margin-bottom:20px;
 }
-.muted { color:var(--muted); font-size:12px; line-height:1.9; }
-.task {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 0; border-bottom:1px solid var(--line);
+.empty{
+  display:none;
+  color:var(--muted);
+  text-align:center;
+  padding:30px;
+  grid-column:1/-1;
 }
-.task:last-child { border:0; }
-.task-icon {
-  width:39px; height:39px; border-radius:12px;
-  background:rgba(69,217,232,.1);
-  display:grid; place-items:center; font-size:18px;
+@media(max-width:850px){
+  nav{display:none}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .product img{height:230px}
+  .categories{grid-template-columns:1fr}
+  .category{height:145px}
+  .hero{min-height:490px;padding:65px 7%}
 }
-.task-info { flex:1; }
-.task-info strong { display:block; font-size:12px; }
-.task-info small { color:var(--muted); font-size:10px; }
-.reward { color:var(--gold); font-size:11px; white-space:nowrap; }
-.action-btn {
-  border:1px solid rgba(69,217,232,.3); color:var(--cyan);
-  background:rgba(69,217,232,.08); border-radius:9px;
-  padding:7px 11px; font-size:11px;
-}
-.action-btn:disabled { opacity:.45; cursor:default; }
-.feature-card {
-  border:1px solid var(--line); border-radius:17px;
-  padding:18px; background:var(--panel);
-  transition:.2s;
-}
-.feature-card:hover { transform:translateY(-3px); border-color:rgba(69,217,232,.3); }
-.feature-art {
-  height:105px; border-radius:13px; margin-bottom:13px;
-  display:grid; place-items:center; font-size:42px;
-  background:radial-gradient(circle,rgba(69,217,232,.2),rgba(156,124,255,.07));
-}
-.feature-card h4 { margin:0 0 6px; font-size:14px; }
-.feature-card p { color:var(--muted); font-size:11px; line-height:1.9; min-height:42px; }
-.lesson {
-  border:1px solid var(--line); background:var(--panel);
-  border-radius:15px; padding:17px; margin-bottom:12px;
-}
-.lesson h4 { margin:0 0 7px; }
-.lesson p { color:var(--muted); font-size:12px; line-height:2; }
-.city-grid {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:13px;
-}
-.building {
-  border:1px solid var(--line); background:var(--panel);
-  border-radius:15px; padding:18px; text-align:center;
-}
-.building .emoji { font-size:35px; margin:8px; }
-.building h4 { margin:5px 0; font-size:13px; }
-.building p { color:var(--muted); font-size:10px; }
-.profile-box {
-  display:flex; align-items:center; gap:18px;
-  background:var(--panel); border:1px solid var(--line);
-  padding:22px; border-radius:18px; margin-bottom:18px;
-}
-.big-avatar {
-  width:70px; height:70px; border-radius:20px;
-  display:grid; place-items:center; font-size:32px;
-  background:linear-gradient(135deg,#315d83,#8869c9);
-}
-input {
-  background:#0b1423; color:var(--text);
-  border:1px solid var(--line); border-radius:10px;
-  padding:11px 13px; outline:none; width:100%;
-}
-input:focus { border-color:var(--cyan); }
-.form-row { display:flex; gap:10px; max-width:500px; }
-.notice {
-  padding:13px 15px; border-radius:12px;
-  background:rgba(69,217,232,.07);
-  border:1px solid rgba(69,217,232,.15);
-  color:#b8dce4; font-size:11px; line-height:2;
-}
-.mobile-menu { display:none; }
-@media(max-width:950px) {
-  .sidebar { width:210px; }
-  .main { margin-right:210px; width:calc(100% - 210px); padding:22px 18px; }
-  .stats { grid-template-columns:repeat(2,1fr); }
-  .grid-2 { grid-template-columns:1fr; }
-}
-@media(max-width:650px) {
-  .sidebar {
-    width:100%; height:66px; top:auto; bottom:0; right:0;
-    padding:5px 7px; border-left:0; border-top:1px solid var(--line);
-    flex-direction:row; justify-content:space-around;
-    background:#0b1423;
-  }
-  .brand,.nav-label,.sidebar-bottom { display:none; }
-  .sidebar nav { display:flex; width:100%; justify-content:space-around; }
-  .nav-btn {
-    width:auto; margin:0; padding:7px 8px;
-    flex-direction:column; gap:2px; font-size:9px;
-  }
-  .nav-icon { font-size:17px; }
-  .main { margin:0; width:100%; padding:20px 14px 90px; }
-  .topbar { align-items:flex-start; }
-  .welcome h1 { font-size:19px; }
-  .welcome p { font-size:11px; }
-  .currency { font-size:10px; padding:8px; }
-  .hero { padding:21px; }
-  .hero h2 { font-size:21px; }
-  .stats { gap:9px; }
-  .stat-card { padding:12px; }
-  .stat-value { font-size:21px; }
-  .grid-3,.city-grid { grid-template-columns:1fr; }
-  .form-row { flex-direction:column; }
+@media(max-width:420px){
+  header{padding:0 5%}
+  .logo{font-size:21px}
+  .cart{padding:8px 10px;font-size:12px}
+  .section{padding:55px 5%}
+  .products{gap:10px}
+  .product img{height:190px}
+  .product-info{padding:10px}
+  .product-info h3{font-size:12px}
 }
 </style>
-</head><body>
-<div class="app">
+</head>
+<body>
 
-<aside class="sidebar">
-  <div class="brand">
-    <div class="brand-icon">N</div>
-    <div>
-      <div class="brand-name">NEXORA</div>
-      <div class="brand-sub">YOUR DIGITAL UNIVERSE</div>
-    </div>
-  </div>
-
+<header>
+  <a class="logo" href="#">MEN<span>ZONE</span></a>
   <nav>
-    <div class="nav-label">فضای اصلی</div>
-    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>داشبورد</button>
-    <button class="nav-btn" data-page="missions"><span class="nav-icon">◈</span>مأموریت‌ها</button>
-    <button class="nav-btn" data-page="city"><span class="nav-icon">▦</span>شهر من</button>
-
-    <div class="nav-label">رشد و یادگیری</div>
-    <button class="nav-btn" data-page="learn"><span class="nav-icon">✧</span>آزمایشگاه دانش</button>
-    <button class="nav-btn" data-page="rank"><span class="nav-icon">♛</span>رتبه‌بندی</button>
-
-    <div class="nav-label">حساب کاربری</div>
-    <button class="nav-btn" data-page="profile"><span class="nav-icon">◎</span>پروفایل من</button>
+    <a href="#home">خانه</a>
+    <a href="#categories">دسته‌بندی</a>
+    <a href="#products">محصولات</a>
+    <a href="#about">درباره ما</a>
   </nav>
+  <button class="cart" onclick="showCart()">
+    سبد خرید (<span id="cartCount">0</span>)
+  </button>
+</header>
 
-  <div class="sidebar-bottom">
-    <div class="mini-profile">
-      <div class="avatar">👤</div>
-      <div>
-        <strong id="sideName" style="font-size:12px">کاوشگر</strong>
-        <div class="muted">عضو NEXORA</div>
-      </div>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">MENZONE / NEW COLLECTION</div>
+    <h1>استایل تو،<br><span>قانون توست.</span></h1>
+    <p>
+      انتخاب متفاوت برای مردانی که سبک خودشان را می‌سازند.
+      جدیدترین استایل‌های مردانه را در MENZONE ببین.
+    </p>
+    <a href="#products" class="btn">مشاهده محصولات</a>
+  </div>
+</section>
+
+<section class="section" id="categories">
+  <div class="section-head">
+    <div>
+      <h2>دسته‌بندی‌ها</h2>
+      <p>استایل مورد علاقه‌ات را پیدا کن</p>
     </div>
   </div>
-</aside>
+  <div class="categories">
+    <a href="#products" class="category" style="background-image:url('https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=700')">
+      <h3>تی‌شرت و زیرپوش</h3>
+    </a>
+    <a href="#products" class="category" style="background-image:url('https://images.unsplash.com/photo-1618354691229-88d47f285158?w=700')">
+      <h3>هودی و سویشرت</h3>
+    </a>
+    <a href="#products" class="category" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700')">
+      <h3>شلوار و استایل روزمره</h3>
+    </a>
+  </div>
+</section>
 
-<main class="main">
-  <header class="topbar">
-    <div class="welcome">
-      <h1 id="greeting">به NEXORA خوش آمدی</h1>
-      <p>آینده را فقط تماشا نکن؛ بخشی از آن باش.</p>
+<section class="section" id="products">
+  <div class="section-head">
+    <div>
+      <h2>محصولات منتخب</h2>
+      <p>جدیدترین انتخاب‌های MENZONE</p>
     </div>
-    <div class="top-actions">
-      <div class="currency">✦ <span id="topNex">120</span> NEX</div>
-    </div>
-  </header>
+  </div>
 
-  <!-- صفحه داشبورد -->
-  <section class="page active" id="page-home">
-    <div class="hero">
-      <div class="hero-tag">WELCOME TO YOUR NEXT WORLD</div>
-      <h2>جهان دیجیتالی خودت را بساز.</h2>
-      <p>
-        یاد بگیر، مأموریت انجام بده، تجربه کسب کن و شهر دیجیتالی خودت را توسعه بده.
-        اینجا هر قدم تو بخشی از مسیر پیشرفت توست.
-      </p>
-      <button class="primary-btn" onclick="goPage('missions')">شروع مأموریت‌ها ←</button>
-    </div>
+  <input id="search" class="search" placeholder="جستجوی محصول..." oninput="filterProducts()">
 
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-top"><span>سطح فعلی</span><span class="stat-icon">⚡</span></div>
-        <div class="stat-value" id="levelValue">1</div>
-        <div class="stat-note">سطح کاوشگر</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-top"><span>امتیاز تجربه</span><span class="stat-icon">✧</span></div>
-        <div class="stat-value" id="xpValue">0</div>
-        <div class="stat-note">XP جمع‌آوری‌شده</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-top"><span>دارایی مجازی</span><span class="stat-icon">◈</span></div>
-        <div class="stat-value" id="nexValue">120</div>
-        <div class="stat-note">واحد NEX</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-top"><span>مأموریت‌های کامل</span><span class="stat-icon">✓</span></div>
-        <div class="stat-value" id="doneValue">0</div>
-        <div class="stat-note">تکمیل‌شده</div>
-      </div>
-    </div>
+  <div class="filters">
+    <button class="filter active" onclick="setCategory('all',this)">همه</button>
+    <button class="filter" onclick="setCategory('shirt',this)">تی‌شرت</button>
+    <button class="filter" onclick="setCategory('hoodie',this)">هودی</button>
+    <button class="filter" onclick="setCategory('pants',this)">شلوار</button>
+  </div>
 
-    <div class="section-title">
-      <h3>مسیر پیشرفت تو</h3>
-      <span id="xpLabel">0 از 100 XP</span>
-    </div>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;gap:10px">
-        <strong id="levelLabel">سطح ۱ — تازه‌وارد</strong>
-        <span class="muted">مرحله بعدی</span>
-      </div>
-      <div class="progress"><div id="xpBar" style="width:0%"></div></div>
-      <div class="muted">با یادگیری و انجام مأموریت‌ها تجربه کسب کن و سطح خود را بالا ببر.</div>
-    </div>
+  <div class="products" id="productList"></div>
+</section>
 
-    <div class="section-title">
-      <h3>فعالیت‌های پیشنهادی</h3>
-      <span>برای شروع</span>
-    </div>
-    <div class="grid-3">
-      <div class="feature-card">
-        <div class="feature-art">🧠</div>
-        <h4>دانش آینده</h4>
-        <p>با مفاهیم هوش مصنوعی و فناوری‌های نو آشنا شو.</p>
-        <button class="action-btn" onclick="goPage('learn')">ورود به آزمایشگاه</button>
-      </div>
-      <div class="feature-card">
-        <div class="feature-art">🏙️</div>
-        <h4>شهر دیجیتالی</h4>
-        <p>ساختمان‌های خودت را بساز و شهر خود را توسعه بده.</p>
-        <button class="action-btn" onclick="goPage('city')">مشاهده شهر</button>
-      </div>
-      <div class="feature-card">
-        <div class="feature-art">🎯</div>
-        <h4>مأموریت‌های روزانه</h4>
-        <p>چالش‌ها را انجام بده و پاداش مجازی دریافت کن.</p>
-        <button class="action-btn" onclick="goPage('missions')">دیدن مأموریت‌ها</button>
-      </div>
-    </div>
-  </section>
+<section class="promo">
+  <h2>استایل جدید، شروع جدید</h2>
+  <p>به دنیای MENZONE خوش آمدی.</p>
+  <a href="#products" class="btn">خرید و مشاهده</a>
+</section>
 
-  <!-- صفحه مأموریت‌ها -->
-  <section class="page" id="page-missions">
-    <div class="section-title">
-      <h3>مأموریت‌های تو</h3>
-      <span>انجام بده و پاداش بگیر</span>
-    </div>
-    <div class="notice">
-      هر مأموریت فرصتی برای یادگیری و پیشرفت است. با تکمیل آن، XP و NEX مجازی دریافت می‌کنی.
-    </div>
-    <div class="card" style="margin-top:15px" id="missionList"></div>
-  </section>
+<footer id="about">
+  <div class="logo">MEN<span>ZONE</span></div>
+  <p>فروشگاه آنلاین پوشاک مردانه</p>
+  <p>© 2026 MENZONE — All Rights Reserved</p>
+</footer>
 
-  <!-- صفحه شهر -->
-  <section class="page" id="page-city">
-    <div class="hero">
-      <div class="hero-tag">YOUR PERSONAL DIGITAL CITY</div>
-      <h2>شهر خودت را توسعه بده.</h2>
-      <p>با استفاده از NEX مجازی ساختمان‌های جدید بساز. هر ساختمان بخشی از جهان دیجیتالی تو خواهد بود.</p>
-    </div>
-    <div class="section-title">
-      <h3>ساختمان‌های شهر</h3>
-      <span id="buildingCount">۰ ساختمان</span>
-    </div>
-    <div class="city-grid" id="cityGrid"></div>
-    <p class="muted">ساخت‌وساز در این نسخه آزمایشی فقط با امتیاز مجازی انجام می‌شود.</p>
-  </section>
-
-  <!-- صفحه آموزش -->
-  <section class="page" id="page-learn">
-    <div class="section-title">
-      <h3>آزمایشگاه دانش</h3>
-      <span>یادگیری، مهارت، آینده</span>
-    </div>
-    <div class="grid-3">
-      <div class="feature-card">
-        <div class="feature-art">🤖</div>
-        <h4>هوش مصنوعی</h4>
-        <p>هوش مصنوعی چیست و چگونه جهان را تغییر می‌دهد؟</p>
-        <button class="action-btn" onclick="openLesson('ai')">شروع درس</button>
-      </div>
-      <div class="feature-card">
-        <div class="feature-art">💻</div>
-        <h4>مهارت دیجیتال</h4>
-        <p>مهارت‌های مهم برای کار و زندگی در دنیای دیجیتال.</p>
-        <button class="action-btn" onclick="openLesson('digital')">شروع درس</button>
-      </div>
-      <div class="feature-card">
-        <div class="feature-art">📈</div>
-        <h4>تفکر اقتصادی</h4>
-        <p>ارزش، درآمد، سرمایه و تصمیم‌گیری اقتصادی.</p>
-        <button class="action-btn" onclick="openLesson('economy')">شروع درس</button>
-      </div>
-    </div>
-    <div class="section-title"><h3>محتوای آموزشی</h3></div>
-    <div id="lessonContent" class="card">
-      <div style="font-size:30px">📚</div>
-      <h3>یک موضوع را انتخاب کن</h3>
-      <p class="muted">برای شروع یادگیری، یکی از دوره‌های بالا را انتخاب کن.</p>
-    </div>
-  </section>
-
-  <!-- صفحه رتبه‌بندی -->
-  <section class="page" id="page-rank">
-    <div class="section-title">
-      <h3>تالار پیشرفت</h3>
-      <span>رتبه‌بندی آزمایشی</span>
-    </div>
-    <div class="notice">
-      این جدول در نسخه فعلی نمونه است و هنوز کاربران واقعی دیگر را نمایش نمی‌دهد.
-    </div>
-    <div class="card" style="margin-top:15px" id="rankList"></div>
-  </section>
-
-  <!-- صفحه پروفایل -->
-  <section class="page" id="page-profile">
-    <div class="section-title"><h3>پروفایل من</h3></div>
-    <div class="profile-box">
-      <div class="big-avatar">👤</div>
-      <div>
-        <h2 id="profileName" style="margin:0 0 5px">کاوشگر</h2>
-        <div class="muted" id="profileLevel">سطح ۱</div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>تنظیم نام نمایشی</h3>
-      <p class="muted">نامی انتخاب کن که در دنیای NEXORA با آن شناخته شوی.</p>
-      <div class="form-row">
-        <input id="nameInput" maxlength="22" placeholder="نام نمایشی جدید">
-        <button class="primary-btn" style="margin:0" onclick="saveName()">ذخیره نام</button>
-      </div>
-    </div>
-    <div class="card" style="margin-top:14px">
-      <h3>اطلاعات حساب</h3>
-      <p class="muted">سطح: <strong id="profileLevel2">۱</strong></p>
-      <p class="muted">XP: <strong id="profileXP">۰</strong></p>
-      <p class="muted">NEX: <strong id="profileNEX">۱۲۰</strong></p>
-      <button class="action-btn" onclick="resetProgress()">بازنشانی پیشرفت آزمایشی</button>
-    </div>
-  </section>
-
-  <footer style="text-align:center;color:#657895;font-size:10px;padding:35px 0 10px">
-    NEXORA © 2026 — دنیای دیجیتالی در حال ساخت
-  </footer>
-</main>
-</div><script>
-const defaults = {
-  name: "کاوشگر",
-  xp: 0,
-  nex: 120,
-  done: [],
-  buildings: []
-};
-
-let state = loadState();
-
-function loadState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("nexora_save"));
-    return saved ? {...defaults, ...saved} : {...defaults};
-  } catch {
-    return {...defaults};
-  }
-}
-
-function saveState() {
-  localStorage.setItem("nexora_save", JSON.stringify(state));
-  render();
-}
-
-function level() {
-  return Math.floor(state.xp / 100) + 1;
-}
-
-function goPage(name) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-
-  const page = document.getElementById("page-" + name);
-  if (page) page.classList.add("active");
-
-  const btn = document.querySelector('[data-page="' + name + '"]');
-  if (btn) btn.classList.add("active");
-
-  window.scrollTo({top:0, behavior:"smooth"});
-}
-
-document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => goPage(btn.dataset.page));
-});
-
-const missions = [
-  {
-    id:"m1",
-    icon:"📖",
-    title:"اولین قدم",
-    desc:"با محیط NEXORA آشنا شو.",
-    reward:20,
-    xp:25
-  },
-  {
-    id:"m2",
-    icon:"🤖",
-    title:"شناخت هوش مصنوعی",
-    desc:"یک درس هوش مصنوعی را مطالعه کن.",
-    reward:25,
-    xp:30
-  },
-  {
-    id:"m3",
-    icon:"🏙️",
-    title:"معمار شهر",
-    desc:"اولین ساختمان شهر خود را بساز.",
-    reward:30,
-    xp:35
-  },
-  {
-    id:"m4",
-    icon:"🎯",
-    title:"ذهن کاوشگر",
-    desc:"یک مأموریت دیگر را تکمیل کن.",
-    reward:15,
-    xp:20
-  },
-  {
-    id:"m5",
-    icon:"🌐",
-    title:"شهروند دیجیتال",
-    desc:"نام نمایشی پروفایل خود را تنظیم کن.",
-    reward:20,
-    xp:20
-  }
+<script>
+const products = [
+  {id:1,name:'تی‌شرت مینیمال مشکی',price:450,category:'shirt',image:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600'},
+  {id:2,name:'تی‌شرت سفید کلاسیک',price:400,category:'shirt',image:'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600'},
+  {id:3,name:'هودی مشکی اورسایز',price:950,category:'hoodie',image:'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600'},
+  {id:4,name:'هودی طوسی مدرن',price:900,category:'hoodie',image:'https://images.unsplash.com/photo-1578681994506-b8f463449011?w=600'},
+  {id:5,name:'شلوار کژوال مردانه',price:750,category:'pants',image:'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600'},
+  {id:6,name:'شلوار جین کلاسیک',price:850,category:'pants',image:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600'},
+  {id:7,name:'تی‌شرت استریت',price:500,category:'shirt',image:'https://images.unsplash.com/photo-1583743814966-8936f37f4678?w=600'},
+  {id:8,name:'هودی اسپرت',price:1000,category:'hoodie',image:'https://images.unsplash.com/photo-1578681994506-b8f463449011?w=600'}
 ];
 
-const buildings = [
-  {id:"b1",icon:"🏠",name:"خانه دیجیتال",desc:"نخستین خانه شهر تو",price:40},
-  {id:"b2",icon:"🏢",name:"برج فناوری",desc:"مرکز فناوری شهر",price:70},
-  {id:"b3",icon:"🏫",name:"دانشگاه",desc:"مرکز یادگیری و دانش",price:60},
-  {id:"b4",icon:"🏥",name:"مرکز سلامت",desc:"خدمات سلامت مجازی",price:55},
-  {id:"b5",icon:"🚀",name:"مرکز فضایی",desc:"دروازه‌ای به جهان آینده",price:100},
-  {id:"b6",icon:"🌳",name:"پارک هوشمند",desc:"فضای سبز شهر دیجیتال",price:35}
-];
+let cart = [];
+let activeCategory = 'all';
 
-function renderMissions() {
-  const box = document.getElementById("missionList");
+function renderProducts(){
+  const query = document.getElementById('search').value.trim().toLowerCase();
+  const filtered = products.filter(p =>
+    (activeCategory === 'all' || p.category === activeCategory) &&
+    p.name.toLowerCase().includes(query)
+  );
 
-  box.innerHTML = missions.map(m => {
-    const completed = state.done.includes(m.id);
-
-    return `
-      <div class="task">
-        <div class="task-icon">${m.icon}</div>
-        <div class="task-info">
-          <strong>${m.title}</strong>
-          <small>${m.desc}</small>
+  document.getElementById('productList').innerHTML =
+    filtered.length ? filtered.map(p => `
+      <article class="product">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <p>${p.price.toLocaleString('en-US')} افغانی</p>
+          <button onclick="addToCart(${p.id})">افزودن به سبد خرید</button>
         </div>
-        <div class="reward">+${m.reward} NEX<br>+${m.xp} XP</div>
-        <button class="action-btn"
-          ${completed ? "disabled" : ""}
-          onclick="completeMission('${m.id}')">
-          ${completed ? "تکمیل شد ✓" : "انجام"}
-        </button>
-      </div>
-    `;
-  }).join("");
+      </article>
+    `).join('') : '<div class="empty" style="display:block">محصولی پیدا نشد.</div>';
 }
 
-function completeMission(id) {
-  if (state.done.includes(id)) return;
-
-  const mission = missions.find(m => m.id === id);
-  if (!mission) return;
-
-  state.done.push(id);
-  state.nex += mission.reward;
-  state.xp += mission.xp;
-
-  saveState();
-  alert("مأموریت با موفقیت تکمیل شد! پاداش تو اضافه شد.");
+function setCategory(category,button){
+  activeCategory = category;
+  document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  button.classList.add('active');
+  renderProducts();
 }
 
-function renderCity() {
-  const grid = document.getElementById("cityGrid");
+function filterProducts(){renderProducts()}
 
-  grid.innerHTML = buildings.map(b => {
-    const built = state.buildings.includes(b.id);
-
-    return `
-      <div class="building">
-        <div class="emoji">${b.icon}</div>
-        <h4>${b.name}</h4>
-        <p>${b.desc}</p>
-        <div class="reward" style="margin:10px">قیمت: ${b.price} NEX</div>
-        <button class="action-btn"
-          ${built ? "disabled" : ""}
-          onclick="build('${b.id}')">
-          ${built ? "ساخته شده ✓" : "ساخت ساختمان"}
-        </button>
-      </div>
-    `;
-  }).join("");
-
-  document.getElementById("buildingCount").textContent =
-    state.buildings.length + " ساختمان";
+function addToCart(id){
+  const product = products.find(p=>p.id===id);
+  cart.push(product);
+  document.getElementById('cartCount').textContent=cart.length;
+  alert('محصول به سبد خرید اضافه شد.');
 }
 
-function build(id) {
-  if (state.buildings.includes(id)) return;
-
-  const building = buildings.find(b => b.id === id);
-  if (!building) return;
-
-  if (state.nex < building.price) {
-    alert("NEX کافی نداری. ابتدا مأموریت انجام بده و پاداش بگیر.");
+function showCart(){
+  if(!cart.length){
+    alert('سبد خرید شما خالی است.');
     return;
   }
-
-  if (!confirm("آیا می‌خواهی " + building.name + " را بسازی؟")) return;
-
-  state.nex -= building.price;
-  state.buildings.push(id);
-  state.xp += 10;
-
-  saveState();
-  alert("ساختمان جدید به شهر تو اضافه شد!");
+  const summary = cart.map(p=>p.name+' - '+p.price+' افغانی').join('\n');
+  const total = cart.reduce((sum,p)=>sum+p.price,0);
+  alert('محصولات سبد خرید:\n'+summary+'\n\nمجموع: '+total+' افغانی');
 }
 
-const lessons = {
-  ai: {
-    title:"هوش مصنوعی چیست؟",
-    icon:"🤖",
-    paragraphs:[
-      "هوش مصنوعی شاخه‌ای از فناوری است که سیستم‌های کامپیوتری را قادر می‌سازد بعضی کارهایی را انجام دهند که معمولاً به توانایی‌های انسانی مانند تشخیص الگو، فهم زبان و تصمیم‌گیری نیاز دارند.",
-      "مدل‌های هوش مصنوعی با استفاده از داده‌ها آموزش می‌بینند. آن‌ها می‌توانند متن تولید کنند، تصویر تحلیل کنند، زبان ترجمه کنند و در حل مسائل کمک کنند.",
-      "نکته مهم: هوش مصنوعی همیشه درست نمی‌گوید. باید پاسخ‌های آن را بررسی کنی و برای تصمیم‌های مهم به منابع معتبر مراجعه کنی."
-    ],
-    question:"هوش مصنوعی چگونه آموزش می‌بیند؟",
-    options:["با داده‌ها و نمونه‌ها","با جادو","بدون هیچ اطلاعاتی"],
-    answer:0
-  },
-  digital: {
-    title:"مهارت دیجیتال چیست؟",
-    icon:"💻",
-    paragraphs:[
-      "مهارت دیجیتال یعنی توانایی استفاده مؤثر و آگاهانه از ابزارها و فناوری‌های دیجیتال برای حل مسائل، یادگیری، ارتباط و کار.",
-      "مهارت‌هایی مانند برنامه‌نویسی، طراحی، تحلیل داده، بازاریابی دیجیتال و کار با ابزارهای هوش مصنوعی می‌توانند فرصت‌های شغلی تازه ایجاد کنند.",
-      "برای پیشرفت، یک مهارت را انتخاب کن، پروژه واقعی بساز و نتیجه کارت را به دیگران نشان بده. فقط تماشای آموزش کافی نیست."
-    ],
-    question:"کدام روش برای یادگیری مهارت بهتر است؟",
-    options:["فقط تماشای ویدیو","تمرین و ساخت پروژه واقعی","حفظ کردن نام ابزارها"],
-    answer:1
-  },
-  economy: {
-    title:"تفکر اقتصادی",
-    icon:"📈",
-    paragraphs:[
-      "اقتصاد درباره چگونگی تولید، توزیع و مصرف منابع محدود است. زمان، پول، نیروی کار و مواد اولیه همگی منابع محدود هستند.",
-      "درآمد معمولاً از ارائه ارزش به دیگران به دست می‌آید؛ برای مثال حل یک مشکل، تولید یک محصول یا ارائه یک خدمت.",
-      "یک اصل مهم اقتصادی این است: قبل از خرج کردن، هزینه، فایده و فرصت‌های ازدست‌رفته را مقایسه کن."
-    ],
-    question:"در یک فعالیت اقتصادی، درآمد پایدار معمولاً از چه چیزی ایجاد می‌شود؟",
-    options:["ارائه ارزش و حل مشکل","فقط خرج کردن پول","انتظار بدون اقدام"],
-    answer:0
-  }
-};
-
-function openLesson(key) {
-  const l = lessons[key];
-  if (!l) return;
-
-  const box = document.getElementById("lessonContent");
-
-  box.innerHTML = `
-    <div style="font-size:30px">${l.icon}</div>
-    <h3>${l.title}</h3>
-    ${l.paragraphs.map(p => `<p class="muted">${p}</p>`).join("")}
-    <div class="divider" style="border-top:1px solid var(--line);margin:18px 0"></div>
-    <h4>${l.question}</h4>
-    <div id="quizOptions">
-      ${l.options.map((o,i) => `
-        <button class="action-btn"
-          style="display:block;width:100%;text-align:right;margin:9px 0;padding:12px"
-          onclick="answerQuiz('${key}',${i})">${o}</button>
-      `).join("")}
-    </div>
-    <p id="quizResult" class="muted"></p>
-  `;
-
-  box.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function answerQuiz(key, choice) {
-  const l = lessons[key];
-  const result = document.getElementById("quizResult");
-  const options = document.getElementById("quizOptions");
-
-  if (options.dataset.answered === "yes") return;
-  options.dataset.answered = "yes";
-
-  if (choice === l.answer) {
-    result.innerHTML = "درست است! آفرین. ۱۵ XP دریافت کردی. ✨";
-    state.xp += 15;
-    saveState();
-  } else {
-    result.innerHTML = "این پاسخ درست نیست. درس را دوباره مرور کن و پاسخ را به خاطر بسپار.";
-  }
-}
-
-function renderRank() {
-  const list = [
-    {name:"Nova",xp:850,level:9},
-    {name:"CyberMind",xp:620,level:7},
-    {name:"FutureX",xp:410,level:5},
-    {name:state.name,xp:state.xp,level:level(),me:true}
-  ].sort((a,b) => b.xp - a.xp);
-
-  document.getElementById("rankList").innerHTML = list.map((u,i) => `
-    <div class="task" style="${u.me ? "background:rgba(69,217,232,.06);padding:12px;border-radius:10px" : ""}">
-      <div class="task-icon">${["🥇","🥈","🥉","⭐"][i] || "⭐"}</div>
-      <div class="task-info">
-        <strong>${u.name} ${u.me ? "(تو)" : ""}</strong>
-        <small>سطح ${u.level}</small>
-      </div>
-      <div class="reward">${u.xp} XP</div>
-    </div>
-  `).join("");
-}
-
-function saveName() {
-  const input = document.getElementById("nameInput");
-  const name = input.value.trim();
-
-  if (!name) {
-    alert("لطفاً یک نام وارد کن.");
-    return;
-  }
-
-  state.name = name;
-  saveState();
-  input.value = "";
-  alert("نام نمایشی ذخیره شد.");
-}
-
-function resetProgress() {
-  if (!confirm("تمام پیشرفت آزمایشی، امتیازها و ساختمان‌ها پاک شوند؟")) return;
-
-  state = {...defaults};
-  saveState();
-  alert("پیشرفت آزمایشی بازنشانی شد.");
-}
-
-function render() {
-  const currentLevel = level();
-  const currentXP = state.xp % 100;
-  const completed = state.done.length;
-
-  document.getElementById("greeting").textContent =
-    "خوش آمدی، " + state.name;
-
-  document.getElementById("sideName").textContent = state.name;
-  document.getElementById("profileName").textContent = state.name;
-
-  document.getElementById("levelValue").textContent = currentLevel;
-  document.getElementById("xpValue").textContent = state.xp;
-  document.getElementById("nexValue").textContent = state.nex;
-  document.getElementById("topNex").textContent = state.nex;
-  document.getElementById("doneValue").textContent = completed;
-
-  document.getElementById("xpLabel").textContent =
-    currentXP + " از 100 XP";
-
-  document.getElementById("xpBar").style.width = currentXP + "%";
-
-  document.getElementById("levelLabel").textContent =
-    "سطح " + currentLevel + " — " +
-    (currentLevel === 1 ? "تازه‌وارد" : "کاوشگر پیشرفته");
-
-  document.getElementById("profileLevel").textContent =
-    "سطح " + currentLevel;
-
-  document.getElementById("profileLevel2").textContent = currentLevel;
-  document.getElementById("profileXP").textContent = state.xp;
-  document.getElementById("profileNEX").textContent = state.nex;
-
-  renderMissions();
-  renderCity();
-  renderRank();
-}
-
-render();
+renderProducts();
 </script>
+
 </body>
 </html>
