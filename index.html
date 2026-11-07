@@ -1,493 +1,841 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b18">
-<title>TinyWorld | Game Universe</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+<meta name="theme-color" content="#080d18">
+<title>NEXORA | دنیای دیجیتال آینده</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-:root{
- --bg:#080b18;--panel:#11172b;--panel2:#171f38;
- --purple:#9b72ff;--cyan:#42e8ff;--pink:#ff5cba;
- --text:#f4f5ff;--muted:#8e9ab8;--line:#26304d;
+<style>
+:root {
+  --bg: #080d18;
+  --panel: #101a2b;
+  --panel2: #142238;
+  --line: rgba(255,255,255,.09);
+  --text: #edf4ff;
+  --muted: #91a2bc;
+  --cyan: #45d9e8;
+  --purple: #9c7cff;
+  --green: #54e0a0;
+  --gold: #ffc86b;
+  --red: #ff7185;
 }
-*{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:var(--text);
- font-family:'Vazirmatn',Tahoma,sans-serif;min-height:100vh;
- background-image:radial-gradient(ellipse at 15% 5%,#28205a66,transparent 35%),
- radial-gradient(ellipse at 90% 35%,#073d5860,transparent 35%);
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(70,90,180,.16), transparent 40%),
+    radial-gradient(ellipse at 0% 60%, rgba(30,180,190,.08), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Vazirmatn", Tahoma, sans-serif;
+  min-height: 100vh;
 }
-button{font-family:inherit;cursor:pointer}
-.topbar{
- height:72px;padding:0 5%;display:flex;align-items:center;
- justify-content:space-between;border-bottom:1px solid #ffffff12;
- background:#080b18d9;position:sticky;top:0;z-index:10;
- backdrop-filter:blur(16px)
+button, input { font: inherit; }
+button { cursor: pointer; }
+.app { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 245px;
+  background: rgba(10,17,31,.94);
+  border-left: 1px solid var(--line);
+  padding: 25px 16px;
+  position: fixed;
+  right: 0; top: 0; bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
 }
-.logo{font-size:23px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--cyan)}
-.logo small{font-size:10px;color:var(--muted);display:block;letter-spacing:3px}
-.userbar{display:flex;align-items:center;gap:12px}
-.coin{
- background:#1d2540;border:1px solid #ffffff18;padding:8px 14px;
- border-radius:30px;color:#ffd76b;font-weight:800;font-size:13px
+.brand {
+  display: flex; align-items: center; gap: 11px;
+  padding: 5px 9px 27px;
 }
-.avatar{
- width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
- background:linear-gradient(135deg,var(--purple),var(--cyan));font-weight:900
+.brand-icon {
+  width: 43px; height: 43px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg,var(--cyan),var(--purple));
+  color: #07111d; font-size: 22px; font-weight: 900;
+  box-shadow: 0 0 25px rgba(69,217,232,.2);
 }
-.container{max-width:1180px;margin:auto;padding:35px 22px 70px}
-.hero{
- min-height:260px;border:1px solid #ffffff16;border-radius:26px;
- padding:38px;position:relative;overflow:hidden;
- background:linear-gradient(110deg,#21194b,#102a48 65%,#102e3b);
- display:flex;align-items:center;justify-content:space-between;gap:20px;
+.brand-name { font-size: 21px; font-weight: 800; letter-spacing: 1px; }
+.brand-sub { font-size: 10px; color: var(--muted); }
+.nav-label {
+  color: #657895; font-size: 10px; font-weight: 700;
+  padding: 12px 12px 8px;
 }
-.hero:before{
- content:"";position:absolute;width:320px;height:320px;border-radius:50%;
- background:radial-gradient(circle,#a77aff55,transparent 68%);
- left:8%;top:-100px;filter:blur(5px)
+.nav-btn {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 12px 13px; margin: 3px 0;
+  border: 1px solid transparent; border-radius: 12px;
+  color: var(--muted); background: transparent;
+  text-align: right; transition: .2s;
 }
-.hero-content{position:relative;z-index:1;max-width:590px}
-.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:2px}
-h1{font-size:clamp(30px,5vw,48px);line-height:1.3;margin:12px 0}
-.hero p{color:#c3c9e0;line-height:2;margin:0 0 22px}
-.primary{
- border:0;border-radius:12px;padding:12px 22px;color:#080b18;
- font-weight:900;background:linear-gradient(100deg,var(--cyan),#9affed);
- box-shadow:0 8px 25px #42e8ff33
+.nav-btn:hover, .nav-btn.active {
+  color: var(--text);
+  background: linear-gradient(90deg,rgba(69,217,232,.12),rgba(156,124,255,.10));
+  border-color: rgba(69,217,232,.18);
 }
-.hero-orb{
- position:relative;width:180px;height:180px;flex-shrink:0;margin:15px 5%;
- border-radius:50%;background:radial-gradient(circle at 35% 30%,#d4c3ff,#7a4fe3 30%,#21124d 70%);
- box-shadow:0 0 55px #8c5aff88, inset -20px -20px 35px #080b18;
+.nav-icon { width: 22px; text-align: center; font-size: 17px; }
+.sidebar-bottom { margin-top: auto; }
+.mini-profile {
+  background: var(--panel); border: 1px solid var(--line);
+  padding: 12px; border-radius: 14px;
+  display: flex; align-items: center; gap: 10px;
 }
-.hero-orb:after{
- content:"";position:absolute;width:245px;height:65px;border:8px solid #64eaffaa;
- border-radius:50%;left:-37px;top:55px;transform:rotate(-25deg);
- box-shadow:0 0 20px #42e8ff77
+.avatar {
+  width: 37px; height: 37px; border-radius: 12px;
+  background: linear-gradient(135deg,#315d83,#8869c9);
+  display: grid; place-items: center; font-size: 18px;
 }
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 35px}
-.stat{
- background:#11172b;border:1px solid var(--line);border-radius:16px;
- padding:17px 20px
+.main { margin-right: 245px; width: calc(100% - 245px); padding: 25px 30px 50px; }
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 15px; margin-bottom: 28px;
 }
-.stat strong{font-size:24px;display:block}
-.stat span{font-size:12px;color:var(--muted)}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
-.section-head h2{font-size:21px;margin:0}
-.section-head span{font-size:12px;color:var(--muted)}
-.games{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.game-card{
- border:1px solid #ffffff17;border-radius:20px;overflow:hidden;
- background:linear-gradient(145deg,#151d35,#0e1426);
- transition:.25s;cursor:pointer;position:relative
+.welcome h1 { margin: 0 0 5px; font-size: 24px; }
+.welcome p { margin: 0; color: var(--muted); font-size: 13px; }
+.top-actions { display: flex; align-items: center; gap: 10px; }
+.currency {
+  border: 1px solid rgba(255,200,107,.25);
+  background: rgba(255,200,107,.08);
+  color: var(--gold); padding: 9px 14px;
+  border-radius: 12px; font-size: 13px;
 }
-.game-card:hover{transform:translateY(-5px);border-color:#8c72ff88;box-shadow:0 15px 35px #0006}
-.game-art{
- height:190px;position:relative;display:grid;place-items:center;overflow:hidden
+.page { display: none; animation: appear .25s ease; }
+.page.active { display: block; }
+@keyframes appear { from {opacity:0;transform:translateY(6px)} to {opacity:1;transform:translateY(0)} }
+.hero {
+  border: 1px solid rgba(69,217,232,.19);
+  border-radius: 22px; padding: 28px;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(69,217,232,.17),transparent 35%),
+    linear-gradient(120deg,#14253c,#171c36);
+  position: relative; overflow: hidden;
+  margin-bottom: 22px;
 }
-.game-art:before,.game-art:after{content:"";position:absolute;border-radius:50%;filter:blur(1px)}
-.runner-art{background:linear-gradient(135deg,#32104e,#111c46 60%,#062f42)}
-.runner-art:before{width:180px;height:180px;border:2px solid #ff5cba66;box-shadow:0 0 35px #ff5cba55}
-.asteroid-art{background:linear-gradient(135deg,#071c3d,#18204d 60%,#42164d)}
-.asteroid-art:before{width:145px;height:145px;background:radial-gradient(circle at 30% 25%,#ffcf8d,#b24e63 55%,#391c54)}
-.memory-art{background:linear-gradient(135deg,#092f3d,#10234b,#30134b)}
-.memory-art:before{width:140px;height:140px;border:2px solid #42e8ff88;box-shadow:0 0 40px #42e8ff55}
-.code-art{background:linear-gradient(135deg,#142b25,#10213c,#29194b)}
-.code-art:before{width:145px;height:145px;border:2px dashed #a78bff;transform:rotate(45deg);box-shadow:0 0 35px #9b72ff55}
-.art-icon{font-size:76px;z-index:1;filter:drop-shadow(0 8px 15px #0009)}
-.game-info{padding:18px}
-.game-title{display:flex;justify-content:space-between;align-items:center}
-.game-title h3{margin:0;font-size:19px}
-.tag{font-size:10px;padding:5px 9px;border-radius:20px;background:#ffffff12;color:var(--cyan)}
-.game-info p{font-size:12px;color:var(--muted);line-height:1.8;min-height:42px}
-.game-bottom{display:flex;align-items:center;justify-content:space-between}
-.reward{font-size:12px;color:#ffd76b}
-.play{
- border:1px solid #8c72ff88;background:#8c72ff18;color:#d6c8ff;
- padding:8px 18px;border-radius:9px;font-weight:800
+.hero:after {
+  content: "N"; position: absolute; left: 35px; top: -55px;
+  font-size: 230px; font-weight: 900; color: rgba(255,255,255,.025);
 }
-.footer{text-align:center;color:#63708d;font-size:11px;margin-top:45px}
-.modal{
- position:fixed;inset:0;background:#050713ed;z-index:30;
- display:none;align-items:center;justify-content:center;padding:14px;
+.hero-tag {
+  color: var(--cyan); font-size: 11px; font-weight: 700;
+  letter-spacing: 1px;
 }
-.modal.open{display:flex}
-.game-window{
- width:min(720px,100%);max-height:94vh;overflow:auto;
- background:#11172b;border:1px solid #ffffff22;border-radius:22px;
- box-shadow:0 20px 90px #000b;padding:20px
+.hero h2 { font-size: 27px; margin: 10px 0; max-width: 600px; }
+.hero p { color: #b0bfd3; max-width: 570px; line-height: 2; font-size: 13px; }
+.primary-btn {
+  background: linear-gradient(100deg,var(--cyan),#8ba8ff);
+  color: #07111d; border: 0; border-radius: 11px;
+  padding: 11px 19px; font-weight: 800; margin-top: 8px;
 }
-.game-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
-.game-head h2{font-size:19px;margin:0}
-.close{
- background:#ffffff12;color:white;border:1px solid #ffffff22;
- width:36px;height:36px;border-radius:10px;font-size:20px
+.primary-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.section-title {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 26px 0 14px;
 }
-.game-stage{
- min-height:300px;background:radial-gradient(ellipse at center,#202b50,#090e20 75%);
- border:1px solid #ffffff17;border-radius:15px;position:relative;
- overflow:hidden;display:flex;align-items:center;justify-content:center;
- padding:15px
+.section-title h3 { margin: 0; font-size: 16px; }
+.section-title span { color: var(--muted); font-size: 11px; }
+.stats {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 13px;
 }
-canvas{display:block;width:100%;max-width:620px;height:300px;border-radius:10px}
-.game-controls{text-align:center;color:var(--muted);font-size:12px;margin:13px 0}
-.game-action{
- border:0;background:linear-gradient(100deg,var(--purple),#5d8bff);
- color:white;border-radius:11px;padding:11px 20px;font-weight:800
+.stat-card, .card {
+  background: linear-gradient(145deg,rgba(20,34,56,.94),rgba(14,24,40,.96));
+  border: 1px solid var(--line); border-radius: 16px; padding: 17px;
 }
-.game-message{text-align:center;font-weight:800;margin:12px 0;color:var(--cyan);min-height:25px}
-.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(340px,100%)}
-.memory-cell{
- aspect-ratio:1;border:1px solid #ffffff22;border-radius:13px;
- background:linear-gradient(145deg,#1a2947,#131b32);font-size:26px;color:white;
- transition:.15s
+.stat-top { display:flex; justify-content:space-between; color:var(--muted); font-size:12px; }
+.stat-icon { font-size:20px; }
+.stat-value { font-size:25px; font-weight:800; margin:10px 0 2px; }
+.stat-note { font-size:10px; color:var(--green); }
+.grid-2 { display:grid; grid-template-columns:1.2fr .8fr; gap:15px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.progress {
+  height: 7px; border-radius: 20px; background: #26354b;
+  overflow: hidden; margin: 12px 0 7px;
 }
-.memory-cell.active{background:linear-gradient(145deg,#42e8ff,#6e78ff);box-shadow:0 0 25px #42e8ff99}
-.code-box{text-align:center;width:100%}
-.code-display{font-size:35px;letter-spacing:13px;color:var(--cyan);font-weight:900;margin:15px}
-.code-input{
- width:180px;padding:12px;background:#080d1d;border:1px solid #52618c;
- border-radius:10px;color:white;text-align:center;font-size:22px;letter-spacing:7px
+.progress > div {
+  height:100%; border-radius:20px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
 }
-.mobile-controls{display:none;gap:12px;justify-content:center;margin-top:10px}
-.mobile-controls button{padding:12px 22px;border-radius:12px;border:1px solid #ffffff33;background:#202c4a;color:white}
-@media(max-width:700px){
- .container{padding:20px 14px 50px}
- .hero{padding:25px 20px;min-height:230px}
- .hero-orb{width:90px;height:90px;margin:0 4px}
- .hero-orb:after{width:125px;height:35px;left:-20px;top:28px;border-width:5px}
- .hero p{font-size:12px}
- .games{grid-template-columns:1fr}
- .game-art{height:165px}
- .stats{gap:8px}
- .stat{padding:12px}
- .stat strong{font-size:19px}
- .stat span{font-size:10px}
- .mobile-controls{display:flex}
+.muted { color:var(--muted); font-size:12px; line-height:1.9; }
+.task {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 0; border-bottom:1px solid var(--line);
+}
+.task:last-child { border:0; }
+.task-icon {
+  width:39px; height:39px; border-radius:12px;
+  background:rgba(69,217,232,.1);
+  display:grid; place-items:center; font-size:18px;
+}
+.task-info { flex:1; }
+.task-info strong { display:block; font-size:12px; }
+.task-info small { color:var(--muted); font-size:10px; }
+.reward { color:var(--gold); font-size:11px; white-space:nowrap; }
+.action-btn {
+  border:1px solid rgba(69,217,232,.3); color:var(--cyan);
+  background:rgba(69,217,232,.08); border-radius:9px;
+  padding:7px 11px; font-size:11px;
+}
+.action-btn:disabled { opacity:.45; cursor:default; }
+.feature-card {
+  border:1px solid var(--line); border-radius:17px;
+  padding:18px; background:var(--panel);
+  transition:.2s;
+}
+.feature-card:hover { transform:translateY(-3px); border-color:rgba(69,217,232,.3); }
+.feature-art {
+  height:105px; border-radius:13px; margin-bottom:13px;
+  display:grid; place-items:center; font-size:42px;
+  background:radial-gradient(circle,rgba(69,217,232,.2),rgba(156,124,255,.07));
+}
+.feature-card h4 { margin:0 0 6px; font-size:14px; }
+.feature-card p { color:var(--muted); font-size:11px; line-height:1.9; min-height:42px; }
+.lesson {
+  border:1px solid var(--line); background:var(--panel);
+  border-radius:15px; padding:17px; margin-bottom:12px;
+}
+.lesson h4 { margin:0 0 7px; }
+.lesson p { color:var(--muted); font-size:12px; line-height:2; }
+.city-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:13px;
+}
+.building {
+  border:1px solid var(--line); background:var(--panel);
+  border-radius:15px; padding:18px; text-align:center;
+}
+.building .emoji { font-size:35px; margin:8px; }
+.building h4 { margin:5px 0; font-size:13px; }
+.building p { color:var(--muted); font-size:10px; }
+.profile-box {
+  display:flex; align-items:center; gap:18px;
+  background:var(--panel); border:1px solid var(--line);
+  padding:22px; border-radius:18px; margin-bottom:18px;
+}
+.big-avatar {
+  width:70px; height:70px; border-radius:20px;
+  display:grid; place-items:center; font-size:32px;
+  background:linear-gradient(135deg,#315d83,#8869c9);
+}
+input {
+  background:#0b1423; color:var(--text);
+  border:1px solid var(--line); border-radius:10px;
+  padding:11px 13px; outline:none; width:100%;
+}
+input:focus { border-color:var(--cyan); }
+.form-row { display:flex; gap:10px; max-width:500px; }
+.notice {
+  padding:13px 15px; border-radius:12px;
+  background:rgba(69,217,232,.07);
+  border:1px solid rgba(69,217,232,.15);
+  color:#b8dce4; font-size:11px; line-height:2;
+}
+.mobile-menu { display:none; }
+@media(max-width:950px) {
+  .sidebar { width:210px; }
+  .main { margin-right:210px; width:calc(100% - 210px); padding:22px 18px; }
+  .stats { grid-template-columns:repeat(2,1fr); }
+  .grid-2 { grid-template-columns:1fr; }
+}
+@media(max-width:650px) {
+  .sidebar {
+    width:100%; height:66px; top:auto; bottom:0; right:0;
+    padding:5px 7px; border-left:0; border-top:1px solid var(--line);
+    flex-direction:row; justify-content:space-around;
+    background:#0b1423;
+  }
+  .brand,.nav-label,.sidebar-bottom { display:none; }
+  .sidebar nav { display:flex; width:100%; justify-content:space-around; }
+  .nav-btn {
+    width:auto; margin:0; padding:7px 8px;
+    flex-direction:column; gap:2px; font-size:9px;
+  }
+  .nav-icon { font-size:17px; }
+  .main { margin:0; width:100%; padding:20px 14px 90px; }
+  .topbar { align-items:flex-start; }
+  .welcome h1 { font-size:19px; }
+  .welcome p { font-size:11px; }
+  .currency { font-size:10px; padding:8px; }
+  .hero { padding:21px; }
+  .hero h2 { font-size:21px; }
+  .stats { gap:9px; }
+  .stat-card { padding:12px; }
+  .stat-value { font-size:21px; }
+  .grid-3,.city-grid { grid-template-columns:1fr; }
+  .form-row { flex-direction:column; }
 }
 </style>
-</head>
-<body>
+</head><body>
+<div class="app">
 
-<header class="topbar">
- <div class="logo">TINY<span>WORLD</span><small>YOUR GAME UNIVERSE</small></div>
- <div class="userbar">
-  <div class="coin">🪙 <span id="coins">500</span></div>
-  <div class="avatar">T</div>
- </div>
-</header>
-
-<main class="container">
- <section class="hero">
-  <div class="hero-content">
-   <div class="eyebrow">WELCOME TO THE UNIVERSE</div>
-   <h1>دنیای بازی تو،<br>از اینجا شروع می‌شود.</h1>
-   <p>بازی کن، مهارتت را بالا ببر، رکورد بزن و وارد رقابت شو. هر مرحله یک چالش تازه است.</p>
-   <button class="primary" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">ورود به بازی‌ها ←</button>
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-icon">N</div>
+    <div>
+      <div class="brand-name">NEXORA</div>
+      <div class="brand-sub">YOUR DIGITAL UNIVERSE</div>
+    </div>
   </div>
-  <div class="hero-orb"></div>
- </section>
 
- <section class="stats">
-  <div class="stat"><strong id="played">0</strong><span>بازی انجام‌شده</span></div>
-  <div class="stat"><strong id="best">0</strong><span>بهترین رکورد</span></div>
-  <div class="stat"><strong id="level">1</strong><span>سطح بازیکن</span></div>
- </section>
+  <nav>
+    <div class="nav-label">فضای اصلی</div>
+    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>داشبورد</button>
+    <button class="nav-btn" data-page="missions"><span class="nav-icon">◈</span>مأموریت‌ها</button>
+    <button class="nav-btn" data-page="city"><span class="nav-icon">▦</span>شهر من</button>
 
- <div class="section-head" id="games">
-  <h2>🎮 دنیای بازی‌ها</h2><span>چهار تجربه متفاوت</span>
- </div>
+    <div class="nav-label">رشد و یادگیری</div>
+    <button class="nav-btn" data-page="learn"><span class="nav-icon">✧</span>آزمایشگاه دانش</button>
+    <button class="nav-btn" data-page="rank"><span class="nav-icon">♛</span>رتبه‌بندی</button>
 
- <section class="games">
-  <article class="game-card" onclick="openGame('runner')">
-   <div class="game-art runner-art"><div class="art-icon">🏃</div></div>
-   <div class="game-info">
-    <div class="game-title"><h3>Neon Runner</h3><span class="tag">سرعتی</span></div>
-    <p>از موانع عبور کن، زنده بمان و رکورد سرعت خودت را بشکن.</p>
-    <div class="game-bottom"><span class="reward">🪙 جایزه تا 100 سکه</span><button class="play">بازی کن</button></div>
-   </div>
-  </article>
+    <div class="nav-label">حساب کاربری</div>
+    <button class="nav-btn" data-page="profile"><span class="nav-icon">◎</span>پروفایل من</button>
+  </nav>
 
-  <article class="game-card" onclick="openGame('asteroid')">
-   <div class="game-art asteroid-art"><div class="art-icon">🚀</div></div>
-   <div class="game-info">
-    <div class="game-title"><h3>Asteroid Blaster</h3><span class="tag">اکشن</span></div>
-    <p>سفینه‌ات را هدایت کن و شهاب‌سنگ‌هایی را که به سمتت می‌آیند نابود کن.</p>
-    <div class="game-bottom"><span class="reward">🪙 جایزه تا 150 سکه</span><button class="play">بازی کن</button></div>
-   </div>
-  </article>
+  <div class="sidebar-bottom">
+    <div class="mini-profile">
+      <div class="avatar">👤</div>
+      <div>
+        <strong id="sideName" style="font-size:12px">کاوشگر</strong>
+        <div class="muted">عضو NEXORA</div>
+      </div>
+    </div>
+  </div>
+</aside>
 
-  <article class="game-card" onclick="openGame('memory')">
-   <div class="game-art memory-art"><div class="art-icon">🧠</div></div>
-   <div class="game-info">
-    <div class="game-title"><h3>Memory Matrix</h3><span class="tag">هوش و حافظه</span></div>
-    <p>الگوهای نوری را به خاطر بسپار و مراحل دشوارتر را پشت سر بگذار.</p>
-    <div class="game-bottom"><span class="reward">🪙 جایزه تا 120 سکه</span><button class="play">بازی کن</button></div>
-   </div>
-  </article>
+<main class="main">
+  <header class="topbar">
+    <div class="welcome">
+      <h1 id="greeting">به NEXORA خوش آمدی</h1>
+      <p>آینده را فقط تماشا نکن؛ بخشی از آن باش.</p>
+    </div>
+    <div class="top-actions">
+      <div class="currency">✦ <span id="topNex">120</span> NEX</div>
+    </div>
+  </header>
 
-  <article class="game-card" onclick="openGame('code')">
-   <div class="game-art code-art"><div class="art-icon">🔐</div></div>
-   <div class="game-info">
-    <div class="game-title"><h3>Cyber Code</h3><span class="tag">معمایی</span></div>
-    <p>رمز مخفی چهاررقمی را با راهنمایی‌ها پیدا کن. هوش و منطق تو آزمایش می‌شود.</p>
-    <div class="game-bottom"><span class="reward">🪙 جایزه تا 80 سکه</span><button class="play">بازی کن</button></div>
-   </div>
-  </article>
- </section>
- <div class="footer">TINY WORLD © 2026 — VIRTUAL COINS ONLY · DEMO VERSION</div>
+  <!-- صفحه داشبورد -->
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-tag">WELCOME TO YOUR NEXT WORLD</div>
+      <h2>جهان دیجیتالی خودت را بساز.</h2>
+      <p>
+        یاد بگیر، مأموریت انجام بده، تجربه کسب کن و شهر دیجیتالی خودت را توسعه بده.
+        اینجا هر قدم تو بخشی از مسیر پیشرفت توست.
+      </p>
+      <button class="primary-btn" onclick="goPage('missions')">شروع مأموریت‌ها ←</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-top"><span>سطح فعلی</span><span class="stat-icon">⚡</span></div>
+        <div class="stat-value" id="levelValue">1</div>
+        <div class="stat-note">سطح کاوشگر</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><span>امتیاز تجربه</span><span class="stat-icon">✧</span></div>
+        <div class="stat-value" id="xpValue">0</div>
+        <div class="stat-note">XP جمع‌آوری‌شده</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><span>دارایی مجازی</span><span class="stat-icon">◈</span></div>
+        <div class="stat-value" id="nexValue">120</div>
+        <div class="stat-note">واحد NEX</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><span>مأموریت‌های کامل</span><span class="stat-icon">✓</span></div>
+        <div class="stat-value" id="doneValue">0</div>
+        <div class="stat-note">تکمیل‌شده</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h3>مسیر پیشرفت تو</h3>
+      <span id="xpLabel">0 از 100 XP</span>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:10px">
+        <strong id="levelLabel">سطح ۱ — تازه‌وارد</strong>
+        <span class="muted">مرحله بعدی</span>
+      </div>
+      <div class="progress"><div id="xpBar" style="width:0%"></div></div>
+      <div class="muted">با یادگیری و انجام مأموریت‌ها تجربه کسب کن و سطح خود را بالا ببر.</div>
+    </div>
+
+    <div class="section-title">
+      <h3>فعالیت‌های پیشنهادی</h3>
+      <span>برای شروع</span>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card">
+        <div class="feature-art">🧠</div>
+        <h4>دانش آینده</h4>
+        <p>با مفاهیم هوش مصنوعی و فناوری‌های نو آشنا شو.</p>
+        <button class="action-btn" onclick="goPage('learn')">ورود به آزمایشگاه</button>
+      </div>
+      <div class="feature-card">
+        <div class="feature-art">🏙️</div>
+        <h4>شهر دیجیتالی</h4>
+        <p>ساختمان‌های خودت را بساز و شهر خود را توسعه بده.</p>
+        <button class="action-btn" onclick="goPage('city')">مشاهده شهر</button>
+      </div>
+      <div class="feature-card">
+        <div class="feature-art">🎯</div>
+        <h4>مأموریت‌های روزانه</h4>
+        <p>چالش‌ها را انجام بده و پاداش مجازی دریافت کن.</p>
+        <button class="action-btn" onclick="goPage('missions')">دیدن مأموریت‌ها</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه مأموریت‌ها -->
+  <section class="page" id="page-missions">
+    <div class="section-title">
+      <h3>مأموریت‌های تو</h3>
+      <span>انجام بده و پاداش بگیر</span>
+    </div>
+    <div class="notice">
+      هر مأموریت فرصتی برای یادگیری و پیشرفت است. با تکمیل آن، XP و NEX مجازی دریافت می‌کنی.
+    </div>
+    <div class="card" style="margin-top:15px" id="missionList"></div>
+  </section>
+
+  <!-- صفحه شهر -->
+  <section class="page" id="page-city">
+    <div class="hero">
+      <div class="hero-tag">YOUR PERSONAL DIGITAL CITY</div>
+      <h2>شهر خودت را توسعه بده.</h2>
+      <p>با استفاده از NEX مجازی ساختمان‌های جدید بساز. هر ساختمان بخشی از جهان دیجیتالی تو خواهد بود.</p>
+    </div>
+    <div class="section-title">
+      <h3>ساختمان‌های شهر</h3>
+      <span id="buildingCount">۰ ساختمان</span>
+    </div>
+    <div class="city-grid" id="cityGrid"></div>
+    <p class="muted">ساخت‌وساز در این نسخه آزمایشی فقط با امتیاز مجازی انجام می‌شود.</p>
+  </section>
+
+  <!-- صفحه آموزش -->
+  <section class="page" id="page-learn">
+    <div class="section-title">
+      <h3>آزمایشگاه دانش</h3>
+      <span>یادگیری، مهارت، آینده</span>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card">
+        <div class="feature-art">🤖</div>
+        <h4>هوش مصنوعی</h4>
+        <p>هوش مصنوعی چیست و چگونه جهان را تغییر می‌دهد؟</p>
+        <button class="action-btn" onclick="openLesson('ai')">شروع درس</button>
+      </div>
+      <div class="feature-card">
+        <div class="feature-art">💻</div>
+        <h4>مهارت دیجیتال</h4>
+        <p>مهارت‌های مهم برای کار و زندگی در دنیای دیجیتال.</p>
+        <button class="action-btn" onclick="openLesson('digital')">شروع درس</button>
+      </div>
+      <div class="feature-card">
+        <div class="feature-art">📈</div>
+        <h4>تفکر اقتصادی</h4>
+        <p>ارزش، درآمد، سرمایه و تصمیم‌گیری اقتصادی.</p>
+        <button class="action-btn" onclick="openLesson('economy')">شروع درس</button>
+      </div>
+    </div>
+    <div class="section-title"><h3>محتوای آموزشی</h3></div>
+    <div id="lessonContent" class="card">
+      <div style="font-size:30px">📚</div>
+      <h3>یک موضوع را انتخاب کن</h3>
+      <p class="muted">برای شروع یادگیری، یکی از دوره‌های بالا را انتخاب کن.</p>
+    </div>
+  </section>
+
+  <!-- صفحه رتبه‌بندی -->
+  <section class="page" id="page-rank">
+    <div class="section-title">
+      <h3>تالار پیشرفت</h3>
+      <span>رتبه‌بندی آزمایشی</span>
+    </div>
+    <div class="notice">
+      این جدول در نسخه فعلی نمونه است و هنوز کاربران واقعی دیگر را نمایش نمی‌دهد.
+    </div>
+    <div class="card" style="margin-top:15px" id="rankList"></div>
+  </section>
+
+  <!-- صفحه پروفایل -->
+  <section class="page" id="page-profile">
+    <div class="section-title"><h3>پروفایل من</h3></div>
+    <div class="profile-box">
+      <div class="big-avatar">👤</div>
+      <div>
+        <h2 id="profileName" style="margin:0 0 5px">کاوشگر</h2>
+        <div class="muted" id="profileLevel">سطح ۱</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>تنظیم نام نمایشی</h3>
+      <p class="muted">نامی انتخاب کن که در دنیای NEXORA با آن شناخته شوی.</p>
+      <div class="form-row">
+        <input id="nameInput" maxlength="22" placeholder="نام نمایشی جدید">
+        <button class="primary-btn" style="margin:0" onclick="saveName()">ذخیره نام</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>اطلاعات حساب</h3>
+      <p class="muted">سطح: <strong id="profileLevel2">۱</strong></p>
+      <p class="muted">XP: <strong id="profileXP">۰</strong></p>
+      <p class="muted">NEX: <strong id="profileNEX">۱۲۰</strong></p>
+      <button class="action-btn" onclick="resetProgress()">بازنشانی پیشرفت آزمایشی</button>
+    </div>
+  </section>
+
+  <footer style="text-align:center;color:#657895;font-size:10px;padding:35px 0 10px">
+    NEXORA © 2026 — دنیای دیجیتالی در حال ساخت
+  </footer>
 </main>
-
-<div class="modal" id="modal">
- <div class="game-window">
-  <div class="game-head">
-   <h2 id="gameTitle">Game</h2>
-   <button class="close" onclick="closeGame()">×</button>
-  </div>
-  <div class="game-stage" id="stage"></div>
-  <div class="game-message" id="message"></div>
-  <div class="game-controls" id="instructions"></div>
-  <div style="text-align:center"><button class="game-action" id="startBtn" onclick="startCurrent()">شروع بازی</button></div>
-  <div class="mobile-controls" id="mobileControls"></div>
- </div>
-</div>
-
-<script>
-const $=id=>document.getElementById(id);
-let data=JSON.parse(localStorage.getItem('twData')||'{"coins":500,"played":0,"best":0,"xp":0}');
-let current='',gameLoop=null,gameState={},keys={};
-
-function save(){
- localStorage.setItem('twData',JSON.stringify(data));
- $('coins').textContent=data.coins;
- $('played').textContent=data.played;
- $('best').textContent=data.best;
- $('level').textContent=Math.floor(data.xp/300)+1;
-}
-save();
-
-const titles={
- runner:'🏃 Neon Runner',
- asteroid:'🚀 Asteroid Blaster',
- memory:'🧠 Memory Matrix',
- code:'🔐 Cyber Code'
-};
-const instructions={
- runner:'برای پرش، روی صفحه بزن یا Space را فشار بده.',
- asteroid:'با کلیدهای چپ و راست حرکت کن و با Space شلیک کن.',
- memory:'خانه‌های روشن‌شده را به همان ترتیب انتخاب کن.',
- code:'یک رمز چهاررقمی بدون رقم تکراری پیدا کن.'
+</div><script>
+const defaults = {
+  name: "کاوشگر",
+  xp: 0,
+  nex: 120,
+  done: [],
+  buildings: []
 };
 
-function openGame(name){
- current=name;
- $('gameTitle').textContent=titles[name];
- $('instructions').textContent=instructions[name];
- $('message').textContent='';
- $('stage').innerHTML='';
- $('mobileControls').innerHTML='';
- $('modal').classList.add('open');
- $('startBtn').style.display='inline-block';
- if(name==='runner'||name==='asteroid') drawCanvas();
- if(name==='memory') prepareMemory();
- if(name==='code') prepareCode();
-}
-function closeGame(){
- stopLoop();
- $('modal').classList.remove('open');
- current='';
-}
-function stopLoop(){if(gameLoop)cancelAnimationFrame(gameLoop);gameLoop=null}
-function startCurrent(){
- stopLoop();
- $('message').textContent='';
- $('startBtn').style.display='none';
- if(current==='runner')startRunner();
- if(current==='asteroid')startAsteroid();
- if(current==='memory')startMemory();
- if(current==='code')startCode();
-}
-function drawCanvas(){
- $('stage').innerHTML='<canvas id="gameCanvas" width="620" height="300"></canvas>';
-}
-function finish(score){
- stopLoop();
- score=Math.max(0,Math.floor(score));
- const reward=Math.min(150,Math.max(5,Math.floor(score/2)));
- data.coins+=reward;data.xp+=Math.max(10,Math.floor(score/2));
- data.played++;data.best=Math.max(data.best,score);save();
- $('message').textContent='پایان بازی! امتیاز: '+score+' | جایزه: '+reward+' سکه';
- $('startBtn').textContent='دوباره بازی کن';
- $('startBtn').style.display='inline-block';
-}
+let state = loadState();
 
-/* NEON RUNNER */
-function startRunner(){
- drawCanvas();
- const c=$('gameCanvas'),ctx=c.getContext('2d');
- let player={x:85,y:230,vy:0,jump:false};
- let obstacles=[],score=0,frame=0,dead=false;
- function jump(){if(!player.jump&&!dead){player.vy=-12;player.jump=true}}
- c.onclick=jump;
- document.onkeydown=e=>{if(e.code==='Space'){e.preventDefault();jump()}};
- let ground=255;
- function loop(){
-  if(dead)return;
-  frame++;score++;
-  ctx.clearRect(0,0,620,300);
-  let bg=ctx.createLinearGradient(0,0,620,300);
-  bg.addColorStop(0,'#111633');bg.addColorStop(1,'#092b3b');
-  ctx.fillStyle=bg;ctx.fillRect(0,0,620,300);
-  for(let i=0;i<35;i++){
-   let x=(i*97-frame*1.2)%620;if(x<0)x+=620;
-   ctx.fillStyle='#ffffff55';ctx.fillRect(x,(i*43)%210,2,2);
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("nexora_save"));
+    return saved ? {...defaults, ...saved} : {...defaults};
+  } catch {
+    return {...defaults};
   }
-  ctx.strokeStyle='#42e8ff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,ground);ctx.lineTo(620,ground);ctx.stroke();
-  player.vy+=.55;player.y+=player.vy;
-  if(player.y>=230){player.y=230;player.vy=0;player.jump=false}
-  ctx.shadowBlur=20;ctx.shadowColor='#42e8ff';
-  ctx.fillStyle='#42e8ff';ctx.fillRect(player.x,player.y,28,25);
-  ctx.fillStyle='#fff';ctx.fillRect(player.x+17,player.y+5,5,5);ctx.shadowBlur=0;
-  if(frame%85===0)obstacles.push({x:630,w:22+Math.random()*18,h:25+Math.random()*30});
-  obstacles.forEach(o=>{
-   o.x-=5.2;
-   ctx.fillStyle='#ff5cba';ctx.shadowColor='#ff5cba';ctx.shadowBlur=15;
-   ctx.fillRect(o.x,ground-o.h,o.w,o.h);ctx.shadowBlur=0;
-   if(player.x+25>o.x&&player.x<o.x+o.w&&player.y+25>ground-o.h){
-    dead=true;finish(score);return;
-   }
-  });
-  obstacles=obstacles.filter(o=>o.x>-50);
-  ctx.fillStyle='white';ctx.font='bold 18px sans-serif';ctx.fillText('SCORE '+score,20,30);
-  gameLoop=requestAnimationFrame(loop);
- }
- loop();
- $('mobileControls').innerHTML='<button onclick="runnerJump()">⬆ پرش</button>';
- window.runnerJump=jump;
 }
 
-/* ASTEROID BLASTER */
-function startAsteroid(){
- drawCanvas();
- const c=$('gameCanvas'),ctx=c.getContext('2d');
- let ship=310,bullets=[],rocks=[],score=0,frame=0,dead=false;
- keys={};
- document.onkeydown=e=>{keys[e.code]=true;if(e.code==='Space')e.preventDefault()};
- document.onkeyup=e=>keys[e.code]=false;
- $('mobileControls').innerHTML='<button onpointerdown="keys.ArrowLeft=true" onpointerup="keys.ArrowLeft=false">◀</button><button onclick="shoot()">شلیک</button><button onpointerdown="keys.ArrowRight=true" onpointerup="keys.ArrowRight=false">▶</button>';
- window.shoot=()=>bullets.push({x:ship+10,y:250});
- function loop(){
-  if(dead)return;
-  frame++;ctx.clearRect(0,0,620,300);
-  ctx.fillStyle='#080e23';ctx.fillRect(0,0,620,300);
-  for(let i=0;i<55;i++){
-   let x=(i*79)%620,y=(i*47+frame*1.2)%300;
-   ctx.fillStyle='#ffffff88';ctx.fillRect(x,y,2,2);
+function saveState() {
+  localStorage.setItem("nexora_save", JSON.stringify(state));
+  render();
+}
+
+function level() {
+  return Math.floor(state.xp / 100) + 1;
+}
+
+function goPage(name) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+  const page = document.getElementById("page-" + name);
+  if (page) page.classList.add("active");
+
+  const btn = document.querySelector('[data-page="' + name + '"]');
+  if (btn) btn.classList.add("active");
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => goPage(btn.dataset.page));
+});
+
+const missions = [
+  {
+    id:"m1",
+    icon:"📖",
+    title:"اولین قدم",
+    desc:"با محیط NEXORA آشنا شو.",
+    reward:20,
+    xp:25
+  },
+  {
+    id:"m2",
+    icon:"🤖",
+    title:"شناخت هوش مصنوعی",
+    desc:"یک درس هوش مصنوعی را مطالعه کن.",
+    reward:25,
+    xp:30
+  },
+  {
+    id:"m3",
+    icon:"🏙️",
+    title:"معمار شهر",
+    desc:"اولین ساختمان شهر خود را بساز.",
+    reward:30,
+    xp:35
+  },
+  {
+    id:"m4",
+    icon:"🎯",
+    title:"ذهن کاوشگر",
+    desc:"یک مأموریت دیگر را تکمیل کن.",
+    reward:15,
+    xp:20
+  },
+  {
+    id:"m5",
+    icon:"🌐",
+    title:"شهروند دیجیتال",
+    desc:"نام نمایشی پروفایل خود را تنظیم کن.",
+    reward:20,
+    xp:20
   }
-  if(keys.ArrowLeft||keys.KeyA)ship-=5;
-  if(keys.ArrowRight||keys.KeyD)ship+=5;
-  ship=Math.max(15,Math.min(585,ship));
-  if(keys.Space&&frame%10===0)bullets.push({x:ship+10,y:250});
-  if(frame%48===0)rocks.push({x:20+Math.random()*580,y:-25,r:12+Math.random()*13,s:2+Math.random()*2});
-  bullets.forEach(b=>{
-   b.y-=7;ctx.fillStyle='#42e8ff';ctx.shadowColor='#42e8ff';ctx.shadowBlur=12;
-   ctx.fillRect(b.x,b.y,4,13);ctx.shadowBlur=0;
-  });
-  rocks.forEach(r=>{
-   r.y+=r.s;ctx.fillStyle='#d47b9b';ctx.shadowColor='#ff5cba';ctx.shadowBlur=10;
-   ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-   if(r.y>245&&Math.abs(r.x-ship)<r.r+15){dead=true;finish(score);return}
-   bullets.forEach(b=>{
-    if(Math.hypot(b.x-r.x,b.y-r.y)<r.r+5){r.dead=true;b.dead=true;score+=10}
-   });
-  });
-  rocks=rocks.filter(r=>!r.dead&&r.y<330);
-  bullets=bullets.filter(b=>!b.dead&&b.y>-20);
-  ctx.fillStyle='#42e8ff';ctx.shadowColor='#42e8ff';ctx.shadowBlur=18;
-  ctx.beginPath();ctx.moveTo(ship+12,220);ctx.lineTo(ship,250);ctx.lineTo(ship+24,250);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle='white';ctx.font='bold 18px sans-serif';ctx.fillText('SCORE '+score,20,30);
-  gameLoop=requestAnimationFrame(loop);
- }
- loop();
+];
+
+const buildings = [
+  {id:"b1",icon:"🏠",name:"خانه دیجیتال",desc:"نخستین خانه شهر تو",price:40},
+  {id:"b2",icon:"🏢",name:"برج فناوری",desc:"مرکز فناوری شهر",price:70},
+  {id:"b3",icon:"🏫",name:"دانشگاه",desc:"مرکز یادگیری و دانش",price:60},
+  {id:"b4",icon:"🏥",name:"مرکز سلامت",desc:"خدمات سلامت مجازی",price:55},
+  {id:"b5",icon:"🚀",name:"مرکز فضایی",desc:"دروازه‌ای به جهان آینده",price:100},
+  {id:"b6",icon:"🌳",name:"پارک هوشمند",desc:"فضای سبز شهر دیجیتال",price:35}
+];
+
+function renderMissions() {
+  const box = document.getElementById("missionList");
+
+  box.innerHTML = missions.map(m => {
+    const completed = state.done.includes(m.id);
+
+    return `
+      <div class="task">
+        <div class="task-icon">${m.icon}</div>
+        <div class="task-info">
+          <strong>${m.title}</strong>
+          <small>${m.desc}</small>
+        </div>
+        <div class="reward">+${m.reward} NEX<br>+${m.xp} XP</div>
+        <button class="action-btn"
+          ${completed ? "disabled" : ""}
+          onclick="completeMission('${m.id}')">
+          ${completed ? "تکمیل شد ✓" : "انجام"}
+        </button>
+      </div>
+    `;
+  }).join("");
 }
 
-/* MEMORY MATRIX */
-let sequence=[],step=0,level=1,accepting=false;
-function prepareMemory(){
- $('stage').innerHTML='<div class="memory-grid" id="memoryGrid"></div>';
- for(let i=0;i<9;i++){
-  let b=document.createElement('button');b.className='memory-cell';b.textContent='✦';
-  b.onclick=()=>memoryClick(i);$('memoryGrid').appendChild(b);
- }
-}
-function startMemory(){
- sequence=[];step=0;level=1;newMemoryRound();
-}
-function newMemoryRound(){
- accepting=false;step=0;sequence.push(Math.floor(Math.random()*9));
- $('message').textContent='مرحله '+level+' — الگو را به خاطر بسپار';
- let cells=[...document.querySelectorAll('.memory-cell')];
- let i=0;
- function show(){
-  if(i>=sequence.length){accepting=true;$('message').textContent='حالا همان ترتیب را انتخاب کن';return}
-  let cell=cells[sequence[i]];
-  cell.classList.add('active');
-  setTimeout(()=>{cell.classList.remove('active');i++;setTimeout(show,220)},450);
- }
- setTimeout(show,450);
-}
-function memoryClick(n){
- if(!accepting)return;
- let cells=[...document.querySelectorAll('.memory-cell')];
- cells[n].classList.add('active');setTimeout(()=>cells[n].classList.remove('active'),180);
- if(sequence[step]!==n){
-  accepting=false;finish(level*25);return;
- }
- step++;
- if(step===sequence.length){
-  accepting=false;level++;
-  if(level>8){finish(960);return}
-  setTimeout(newMemoryRound,700);
- }
+function completeMission(id) {
+  if (state.done.includes(id)) return;
+
+  const mission = missions.find(m => m.id === id);
+  if (!mission) return;
+
+  state.done.push(id);
+  state.nex += mission.reward;
+  state.xp += mission.xp;
+
+  saveState();
+  alert("مأموریت با موفقیت تکمیل شد! پاداش تو اضافه شد.");
 }
 
-/* CYBER CODE */
-let secret='',attempts=0;
-function prepareCode(){
- $('stage').innerHTML='<div class="code-box"><div style="color:#9ba9c8">رمز مخفی چهاررقمی را پیدا کن</div><div class="code-display">????</div><input id="codeInput" class="code-input" maxlength="4" inputmode="numeric" placeholder="0000"><div style="margin-top:15px"><button class="game-action" onclick="checkCode()">بررسی رمز</button></div><div id="codeHistory" style="font-size:12px;color:#aab4d0;margin-top:15px;line-height:2"></div></div>';
+function renderCity() {
+  const grid = document.getElementById("cityGrid");
+
+  grid.innerHTML = buildings.map(b => {
+    const built = state.buildings.includes(b.id);
+
+    return `
+      <div class="building">
+        <div class="emoji">${b.icon}</div>
+        <h4>${b.name}</h4>
+        <p>${b.desc}</p>
+        <div class="reward" style="margin:10px">قیمت: ${b.price} NEX</div>
+        <button class="action-btn"
+          ${built ? "disabled" : ""}
+          onclick="build('${b.id}')">
+          ${built ? "ساخته شده ✓" : "ساخت ساختمان"}
+        </button>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("buildingCount").textContent =
+    state.buildings.length + " ساختمان";
 }
-function startCode(){
- secret='';
- while(secret.length<4){
-  let n=Math.floor(Math.random()*10).toString();
-  if(!secret.includes(n))secret+=n;
- }
- attempts=0;$('codeHistory').innerHTML='';
- $('codeInput').value='';
- $('message').textContent='۱۰ فرصت داری. رقم‌ها تکراری نیستند.';
+
+function build(id) {
+  if (state.buildings.includes(id)) return;
+
+  const building = buildings.find(b => b.id === id);
+  if (!building) return;
+
+  if (state.nex < building.price) {
+    alert("NEX کافی نداری. ابتدا مأموریت انجام بده و پاداش بگیر.");
+    return;
+  }
+
+  if (!confirm("آیا می‌خواهی " + building.name + " را بسازی؟")) return;
+
+  state.nex -= building.price;
+  state.buildings.push(id);
+  state.xp += 10;
+
+  saveState();
+  alert("ساختمان جدید به شهر تو اضافه شد!");
 }
-function checkCode(){
- let input=$('codeInput').value;
- if(!/^\d{4}$/.test(input)||new Set(input).size!==4){
-  $('message').textContent='یک عدد چهاررقمی با رقم‌های متفاوت وارد کن.';return;
- }
- attempts++;
- let exact=0,near=0;
- for(let i=0;i<4;i++){
-  if(input[i]===secret[i])exact++;
-  else if(secret.includes(input[i]))near++;
- }
- $('codeHistory').innerHTML='حدس '+attempts+': '+input+' — درست در جای خود: '+exact+' | درست در جای اشتباه: '+near+'<br>'+$('codeHistory').innerHTML;
- if(exact===4){finish(Math.max(10,100-(attempts-1)*8));return}
- if(attempts>=10){$('message').textContent='فرصت‌ها تمام شد. رمز: '+secret;finish(5);return}
- $('message').textContent='هنوز پیدا نشده؛ دوباره تلاش کن.';
+
+const lessons = {
+  ai: {
+    title:"هوش مصنوعی چیست؟",
+    icon:"🤖",
+    paragraphs:[
+      "هوش مصنوعی شاخه‌ای از فناوری است که سیستم‌های کامپیوتری را قادر می‌سازد بعضی کارهایی را انجام دهند که معمولاً به توانایی‌های انسانی مانند تشخیص الگو، فهم زبان و تصمیم‌گیری نیاز دارند.",
+      "مدل‌های هوش مصنوعی با استفاده از داده‌ها آموزش می‌بینند. آن‌ها می‌توانند متن تولید کنند، تصویر تحلیل کنند، زبان ترجمه کنند و در حل مسائل کمک کنند.",
+      "نکته مهم: هوش مصنوعی همیشه درست نمی‌گوید. باید پاسخ‌های آن را بررسی کنی و برای تصمیم‌های مهم به منابع معتبر مراجعه کنی."
+    ],
+    question:"هوش مصنوعی چگونه آموزش می‌بیند؟",
+    options:["با داده‌ها و نمونه‌ها","با جادو","بدون هیچ اطلاعاتی"],
+    answer:0
+  },
+  digital: {
+    title:"مهارت دیجیتال چیست؟",
+    icon:"💻",
+    paragraphs:[
+      "مهارت دیجیتال یعنی توانایی استفاده مؤثر و آگاهانه از ابزارها و فناوری‌های دیجیتال برای حل مسائل، یادگیری، ارتباط و کار.",
+      "مهارت‌هایی مانند برنامه‌نویسی، طراحی، تحلیل داده، بازاریابی دیجیتال و کار با ابزارهای هوش مصنوعی می‌توانند فرصت‌های شغلی تازه ایجاد کنند.",
+      "برای پیشرفت، یک مهارت را انتخاب کن، پروژه واقعی بساز و نتیجه کارت را به دیگران نشان بده. فقط تماشای آموزش کافی نیست."
+    ],
+    question:"کدام روش برای یادگیری مهارت بهتر است؟",
+    options:["فقط تماشای ویدیو","تمرین و ساخت پروژه واقعی","حفظ کردن نام ابزارها"],
+    answer:1
+  },
+  economy: {
+    title:"تفکر اقتصادی",
+    icon:"📈",
+    paragraphs:[
+      "اقتصاد درباره چگونگی تولید، توزیع و مصرف منابع محدود است. زمان، پول، نیروی کار و مواد اولیه همگی منابع محدود هستند.",
+      "درآمد معمولاً از ارائه ارزش به دیگران به دست می‌آید؛ برای مثال حل یک مشکل، تولید یک محصول یا ارائه یک خدمت.",
+      "یک اصل مهم اقتصادی این است: قبل از خرج کردن، هزینه، فایده و فرصت‌های ازدست‌رفته را مقایسه کن."
+    ],
+    question:"در یک فعالیت اقتصادی، درآمد پایدار معمولاً از چه چیزی ایجاد می‌شود؟",
+    options:["ارائه ارزش و حل مشکل","فقط خرج کردن پول","انتظار بدون اقدام"],
+    answer:0
+  }
+};
+
+function openLesson(key) {
+  const l = lessons[key];
+  if (!l) return;
+
+  const box = document.getElementById("lessonContent");
+
+  box.innerHTML = `
+    <div style="font-size:30px">${l.icon}</div>
+    <h3>${l.title}</h3>
+    ${l.paragraphs.map(p => `<p class="muted">${p}</p>`).join("")}
+    <div class="divider" style="border-top:1px solid var(--line);margin:18px 0"></div>
+    <h4>${l.question}</h4>
+    <div id="quizOptions">
+      ${l.options.map((o,i) => `
+        <button class="action-btn"
+          style="display:block;width:100%;text-align:right;margin:9px 0;padding:12px"
+          onclick="answerQuiz('${key}',${i})">${o}</button>
+      `).join("")}
+    </div>
+    <p id="quizResult" class="muted"></p>
+  `;
+
+  box.scrollIntoView({behavior:"smooth",block:"start"});
 }
+
+function answerQuiz(key, choice) {
+  const l = lessons[key];
+  const result = document.getElementById("quizResult");
+  const options = document.getElementById("quizOptions");
+
+  if (options.dataset.answered === "yes") return;
+  options.dataset.answered = "yes";
+
+  if (choice === l.answer) {
+    result.innerHTML = "درست است! آفرین. ۱۵ XP دریافت کردی. ✨";
+    state.xp += 15;
+    saveState();
+  } else {
+    result.innerHTML = "این پاسخ درست نیست. درس را دوباره مرور کن و پاسخ را به خاطر بسپار.";
+  }
+}
+
+function renderRank() {
+  const list = [
+    {name:"Nova",xp:850,level:9},
+    {name:"CyberMind",xp:620,level:7},
+    {name:"FutureX",xp:410,level:5},
+    {name:state.name,xp:state.xp,level:level(),me:true}
+  ].sort((a,b) => b.xp - a.xp);
+
+  document.getElementById("rankList").innerHTML = list.map((u,i) => `
+    <div class="task" style="${u.me ? "background:rgba(69,217,232,.06);padding:12px;border-radius:10px" : ""}">
+      <div class="task-icon">${["🥇","🥈","🥉","⭐"][i] || "⭐"}</div>
+      <div class="task-info">
+        <strong>${u.name} ${u.me ? "(تو)" : ""}</strong>
+        <small>سطح ${u.level}</small>
+      </div>
+      <div class="reward">${u.xp} XP</div>
+    </div>
+  `).join("");
+}
+
+function saveName() {
+  const input = document.getElementById("nameInput");
+  const name = input.value.trim();
+
+  if (!name) {
+    alert("لطفاً یک نام وارد کن.");
+    return;
+  }
+
+  state.name = name;
+  saveState();
+  input.value = "";
+  alert("نام نمایشی ذخیره شد.");
+}
+
+function resetProgress() {
+  if (!confirm("تمام پیشرفت آزمایشی، امتیازها و ساختمان‌ها پاک شوند؟")) return;
+
+  state = {...defaults};
+  saveState();
+  alert("پیشرفت آزمایشی بازنشانی شد.");
+}
+
+function render() {
+  const currentLevel = level();
+  const currentXP = state.xp % 100;
+  const completed = state.done.length;
+
+  document.getElementById("greeting").textContent =
+    "خوش آمدی، " + state.name;
+
+  document.getElementById("sideName").textContent = state.name;
+  document.getElementById("profileName").textContent = state.name;
+
+  document.getElementById("levelValue").textContent = currentLevel;
+  document.getElementById("xpValue").textContent = state.xp;
+  document.getElementById("nexValue").textContent = state.nex;
+  document.getElementById("topNex").textContent = state.nex;
+  document.getElementById("doneValue").textContent = completed;
+
+  document.getElementById("xpLabel").textContent =
+    currentXP + " از 100 XP";
+
+  document.getElementById("xpBar").style.width = currentXP + "%";
+
+  document.getElementById("levelLabel").textContent =
+    "سطح " + currentLevel + " — " +
+    (currentLevel === 1 ? "تازه‌وارد" : "کاوشگر پیشرفته");
+
+  document.getElementById("profileLevel").textContent =
+    "سطح " + currentLevel;
+
+  document.getElementById("profileLevel2").textContent = currentLevel;
+  document.getElementById("profileXP").textContent = state.xp;
+  document.getElementById("profileNEX").textContent = state.nex;
+
+  renderMissions();
+  renderCity();
+  renderRank();
+}
+
+render();
 </script>
 </body>
 </html>
